@@ -14,7 +14,7 @@ export class PlanField {
   id!: string;
 
   @Fields.string({
-    validate: Validators.required
+    validate: Validators.required,
   })
   name = '';
 

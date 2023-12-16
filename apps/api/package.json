@@ -2,7 +2,7 @@
   "name": "@prici/api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
     "dev": "tsx watch server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

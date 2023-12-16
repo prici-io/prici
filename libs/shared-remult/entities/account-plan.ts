@@ -1,4 +1,5 @@
 import { Entity, Fields, Validators } from 'remult';
+import { FieldKind } from './plan-field';
 
 export enum ResetMode {
   Manual = 'Manual',
@@ -22,15 +23,16 @@ export class AccountPlan {
   planId?: string;
 
   @Fields.object()
-  state = {}
+  state: Record<string, {targetLimit: number | string, kind: FieldKind, currentValue?: number}> = {}
 
   @Fields.string({
     validate: (({ resetMode }: any) => {
       // @ts-ignore
-      if(!ResetMode[resetMode]) {
+      if (!ResetMode[resetMode]) {
         throw 'reset mode not valid'
       }
     })
   })
   resetMode = ResetMode.Manual
+
 }
