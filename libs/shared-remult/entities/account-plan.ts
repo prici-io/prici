@@ -7,6 +7,12 @@ export enum ResetMode {
   Yearly = 'Yearly',
 }
 
+export interface FieldState {
+  targetLimit: number | string,
+  kind: FieldKind,
+  currentValue?: number
+}
+
 @Entity('accountPlans', {
   allowApiCrud: true
 })
@@ -23,7 +29,7 @@ export class AccountPlan {
   planId?: string;
 
   @Fields.object()
-  state: Record<string, {targetLimit: number | string, kind: FieldKind, currentValue?: number}> = {}
+  state: Record<string, FieldState> = {}
 
   @Fields.string({
     validate: (({ resetMode }: any) => {

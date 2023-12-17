@@ -1,40 +1,25 @@
-import { BackendMethod, remult } from 'remult';
-import { AccountPlan } from '../entities/account-plan';
+import { BackendMethod } from 'remult';
+import { FieldState } from '../entities/account-plan';
 import { FieldKind } from '../entities/plan-field';
 
-export class AccountFieldsController {
+export interface IAccountFieldsController {
+  incrementField: (accountId: string, fieldId: string, incrementAmount: number | any) => Promise<any>
+  getFieldState: (accountId: string, fieldId: string) => Promise<any>
+}
+
+export default class AccountFieldsController implements IAccountFieldsController {
 
   @BackendMethod({ allowed: true })
   async incrementField(accountId: string, fieldId: string, incrementAmount: number | any = 1): Promise<any> {
-    if (typeof incrementAmount !== 'number') {
-      throw new Error('increment amount must be a numeric value');
-    }
-    if (incrementAmount < 0) {
-      throw new Error('cannot increment by a negative number')
-    }
-
-    const accountPlanRepo = remult.repo(AccountPlan);
-    const accountPlan = await accountPlanRepo.findFirst({ accountId });
-
-    const accountField = accountPlan.state[fieldId];
-
-    if (accountField.kind !== FieldKind.Number) {
-      throw new Error('cannot increment not numeric field')
-    }
-
-    if (!accountField.currentValue) {
-      accountField.currentValue = 0;
-    }
-    accountField.currentValue += incrementAmount;
-
-    await accountPlanRepo.update(accountPlan.id, { state: accountPlan.state });
+    return;
   }
 
   @BackendMethod({ allowed: true })
-  async getFieldState(accountId: string, fieldId: string) {
-    const accountPlanRepo = remult.repo(AccountPlan);
-    const accountPlan = await accountPlanRepo.findFirst({ accountId });
-
-    return accountPlan.state[fieldId];
+  async getFieldState(accountId: string, fieldId: string): Promise<FieldState> {
+    return {
+      targetLimit: 1,
+      kind: FieldKind.Number,
+      currentValue: 0,
+    }
   }
 }

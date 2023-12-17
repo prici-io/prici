@@ -1,6 +1,7 @@
 import fastify from 'fastify'
 import { remultFastify } from 'remult/remult-fastify'
-import { controllers, entities } from '../../libs/shared-remult'
+import { entities } from '../../libs/shared-remult'
+import { controllers } from './controllers';
 
 (async () => {
   const server = fastify()
