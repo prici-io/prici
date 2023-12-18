@@ -21,6 +21,11 @@ export class AccountPlan {
   id!: string;
 
   @Fields.string({
+    validate: Validators.required,
+  })
+  tenant: string = '';
+
+  @Fields.string({
     validate: Validators.required
   })
   accountId = '';

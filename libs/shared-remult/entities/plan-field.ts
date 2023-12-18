@@ -16,12 +16,17 @@ export class PlanField {
   @Fields.string({
     validate: Validators.required,
   })
+  tenant: string = '';
+
+  @Fields.string({
+    validate: Validators.required,
+  })
   name = '';
 
   @Fields.string({
     validate: ({ kind }: any) => {
       // @ts-ignore
-      if (!(FieldKind[kind])) {
+      if (!(Object.values(FieldKind).includes(kind))) {
         throw 'field kind must be one of ' + Object.values(FieldKind)
       }
     }

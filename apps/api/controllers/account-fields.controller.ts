@@ -1,9 +1,10 @@
-import { BackendMethod, remult } from 'remult';
-import  { IAccountFieldsController } from '../../../libs/shared-remult/controllers/account-fields.controller'
+import { BackendMethod, Controller, remult } from 'remult';
+import BaseController from '../../../libs/shared-remult/controllers/account-fields.controller'
 import { AccountPlan } from '../../../libs/shared-remult/entities/account-plan';
 import { FieldKind } from '../../../libs/shared-remult/entities/plan-field';
 
-export class AccountFieldsController implements IAccountFieldsController {
+@Controller('account-fields')
+export class AccountFieldsController implements BaseController {
 
   @BackendMethod({ allowed: true })
   async incrementField(accountId: string, fieldId: string, incrementAmount: number | any = 1): Promise<any> {
