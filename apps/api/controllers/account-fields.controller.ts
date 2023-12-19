@@ -1,7 +1,7 @@
 import { BackendMethod, Controller, remult } from 'remult';
-import BaseController from '../../../libs/shared-remult/controllers/account-fields.controller'
-import { AccountPlan } from '../../../libs/shared-remult/entities/account-plan';
-import { FieldKind, FieldState } from '../../../libs/shared-remult';
+import BaseController from '@prici/shared-remult/controllers/account-fields.controller'
+import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
+import { FieldKind, FieldState } from '@prici//shared-remult';
 
 @Controller('account-fields')
 export class AccountFieldsController implements BaseController {

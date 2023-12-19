@@ -17,6 +17,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@prici/shared-remult':
+        specifier: workspace:^
+        version: link:../../libs/shared-remult
       fastify:
         specifier: ^4.25.0
         version: 4.25.0
@@ -36,6 +39,9 @@ importers:
 
   apps/demo-backend-app:
     dependencies:
+      '@prici/sdk':
+        specifier: workspace:^
+        version: link:../../libs/sdk
       fastify:
         specifier: ^4.25.0
         version: 4.25.0

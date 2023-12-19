@@ -1,8 +1,9 @@
 import fastify from 'fastify'
-// @ts-ignore
-import PriciSdk from '../../libs/sdk';
+import PriciSdk from '@prici/sdk';
 
 const sdk = new PriciSdk();
+
+const featureId = process.env.TODOS_FEATURE_ID as string;
 
 (async () => {
 
@@ -15,7 +16,7 @@ const sdk = new PriciSdk();
   })
 
   server.post('/api/todos', async (req: any, reply) => {
-    const state = await sdk.getFieldState('demo-account', 'a')
+    const state = await sdk.getFieldState('demo-account', featureId)
 
     if (!state.isAllowed) {
       reply.statusCode = 400;
@@ -29,7 +30,7 @@ const sdk = new PriciSdk();
 
     todos.push(todo);
 
-    sdk.incrementField('demo-account', process.env.TODOS_FEATURE_ID).catch()
+    sdk.incrementField('demo-account', featureId).catch()
 
     return todo;
   })

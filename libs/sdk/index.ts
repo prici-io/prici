@@ -1,9 +1,12 @@
-import { RequestInit } from 'node/globals';
 import { Remult } from 'remult';
 import { Plan } from '@prici/shared-remult/entities/plan';
-import { PlanField } from '@prici/shared-remult/plan-field';
+import { PlanField } from '@prici/shared-remult/entities/plan-field';
 import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
 import AccountFieldsController from '@prici/shared-remult/controllers/account-fields.controller';
+
+export * from '@prici/shared-remult/entities/types'
+
+export {Plan, PlanField, AccountPlan}
 
 class PriciSdk {
   #remult = new Remult();
@@ -32,7 +35,7 @@ class PriciSdk {
     }
   }
 
-  incrementField(accountId: string, fieldId: string, incrementAmount: any) {
+  incrementField(accountId: string, fieldId: string, incrementAmount?: any) {
     return this.#remult.call(this.#accountFields.incrementField, this.#accountFields, accountId, fieldId, incrementAmount)
   }
 

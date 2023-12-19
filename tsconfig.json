@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "nodenext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

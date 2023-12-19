@@ -2,10 +2,10 @@ import fastify from 'fastify'
 import path from 'node:path';
 import jwt from 'jsonwebtoken';
 import { remultFastify } from 'remult/remult-fastify'
-import { entities } from '../../libs/shared-remult'
 import { controllers } from './controllers';
 import { JsonDataProvider, UserInfo } from 'remult';
 import { JsonEntityFileStorage } from 'remult/server';
+import { entities } from '@prici/shared-remult';
 
 declare module 'fastify' {
   class FastifyRequest {

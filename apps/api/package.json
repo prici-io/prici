@@ -5,11 +5,13 @@
   "main": "server.ts",
   "scripts": {
     "dev": "node --env-file .env --import tsx --watch server.ts",
+    "start": "node --import tsx server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@prici/shared-remult": "workspace:^",
     "fastify": "^4.25.0",
     "jsonwebtoken": "^9.0.2",
     "remult": "^0.23.2",

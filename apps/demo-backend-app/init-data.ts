@@ -1,6 +1,4 @@
-// @ts-ignore
-import PriciSdk from '../../libs/sdk';
-import { FieldKind, ResetMode } from '../../libs/shared-remult';
+import PriciSdk, { FieldKind, ResetMode } from '@prici/sdk';
 
 const sdk = new PriciSdk({ token: process.env.PRICI_TOKEN });
 
