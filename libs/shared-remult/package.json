@@ -10,5 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "remult": "^0.23.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
