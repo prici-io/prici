@@ -1,7 +1,7 @@
 import { BackendMethod, Controller, remult } from 'remult';
 import BaseController from '../../../libs/shared-remult/controllers/account-fields.controller'
 import { AccountPlan } from '../../../libs/shared-remult/entities/account-plan';
-import { FieldKind } from '../../../libs/shared-remult/entities/plan-field';
+import { FieldKind, FieldState } from '../../../libs/shared-remult';
 
 @Controller('account-fields')
 export class AccountFieldsController implements BaseController {
@@ -30,10 +30,26 @@ export class AccountFieldsController implements BaseController {
   }
 
   @BackendMethod({ allowed: true })
-  async getFieldState(accountId: string, fieldId: string) {
+  async getFieldState(accountId: string, fieldId: string): Promise<{ isAllowed: boolean, state?: FieldState }> {
     const accountPlanRepo = remult.repo(AccountPlan);
     const accountPlan = await accountPlanRepo.findFirst({ accountId });
 
-    return accountPlan.state[fieldId];
+    if (!accountPlan) {
+      throw new Error('Account does not have any plan');
+    }
+
+    const state = accountPlan.state[fieldId];
+
+    return {
+      isAllowed: state && (
+        state.kind === FieldKind.Boolean ?
+          !!state.currentValue :
+          (state.kind === FieldKind.Number ?
+              (state.currentValue as number) < (state.targetLimit as number) :
+              true
+          )
+      ),
+      state
+    };
   }
 }

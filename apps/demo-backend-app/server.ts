@@ -1,48 +1,10 @@
 import fastify from 'fastify'
 // @ts-ignore
-import sdk from '../../libs/sdk';
-import { FieldKind } from '../../libs/shared-remult/entities/plan-field';
-import { ResetMode } from '../../libs/shared-remult/entities/account-plan';
+import PriciSdk from '../../libs/sdk';
 
+const sdk = new PriciSdk({ token: process.env.PRICI_TOKEN });
 
 (async () => {
-
-  const todosField = await sdk.PlanField.insert({
-    name: 'todos',
-    kind: FieldKind.Number,
-  })
-
-  const plan = await sdk.Plan.insert({
-    name: 'basic',
-    fields: [
-      {
-        fieldId: todosField.id,
-        limit: 3
-      }
-    ]
-  });
-  const advancedPlan = await sdk.Plan.insert({
-    name: 'advanced',
-    fields: [
-      {
-        fieldId: todosField.id,
-        limit: 10
-      }
-    ]
-  });
-
-  await sdk.AccountPlan.insert({
-    accountId: 'demo-account',
-    plan: plan.id,
-    resetMode: ResetMode.Manual,
-    state: {
-      [todosField.id]: {
-        targetLimit: 3,
-        kind: FieldKind.Number,
-        currentValue: 0
-      }
-    }
-  })
 
   const server = fastify()
 
@@ -52,16 +14,22 @@ import { ResetMode } from '../../libs/shared-remult/entities/account-plan';
     return todos;
   })
 
-  server.post('/api/todos', async (req: any) => {
+  server.post('/api/todos', async (req: any, reply) => {
+    const state = await sdk.getFieldState('demo-account', 'a')
+
+    if (!state.isAllowed) {
+      reply.statusCode = 400;
+      return {
+        message: 'limit reached'
+      }
+    }
+
     const todo = req.body || {};
-
-    const state = await sdk.accountFields.getFieldState('demo-account', todosField.id)
-
-
-
     todo.id = btoa(Math.random().toString());
 
     todos.push(todo);
+
+    sdk.incrementField('demo-account', process.env.TODOS_FEATURE_ID).catch()
 
     return todo;
   })

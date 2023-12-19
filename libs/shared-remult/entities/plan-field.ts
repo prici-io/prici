@@ -1,21 +1,15 @@
 import { Entity, Fields, Validators } from 'remult';
+import { FieldKind } from './types';
+import { entityBaseOptions } from '../utils/entity-base-options';
 
-export enum FieldKind {
-  Boolean = 'boolean',
-  Number = 'number',
-  String = 'string'
-}
+const fieldKinds = new Set(Object.values(FieldKind))
 
-@Entity('planFields', {
-  allowApiCrud: true
-})
+@Entity('planFields', entityBaseOptions)
 export class PlanField {
   @Fields.uuid()
   id!: string;
 
-  @Fields.string({
-    validate: Validators.required,
-  })
+  @Fields.string()
   tenant: string = '';
 
   @Fields.string({
@@ -26,8 +20,8 @@ export class PlanField {
   @Fields.string({
     validate: ({ kind }: any) => {
       // @ts-ignore
-      if (!(Object.values(FieldKind).includes(kind))) {
-        throw 'field kind must be one of ' + Object.values(FieldKind)
+      if (!(fieldKinds.has(kind))) {
+        throw 'field kind must be one of ' + Array.from(fieldKinds)
       }
     }
   })

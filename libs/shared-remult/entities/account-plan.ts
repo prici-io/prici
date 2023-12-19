@@ -1,28 +1,16 @@
-import { Entity, Fields, Validators } from 'remult';
-import { FieldKind } from './plan-field';
+import { Entity, Fields, Relations, remult, Validators } from 'remult';
+import { FieldState, ResetMode } from './types';
+import { entityBaseOptions } from '../utils/entity-base-options';
+import { Plan } from './plan';
 
-export enum ResetMode {
-  Manual = 'Manual',
-  Monthly = 'Monthly',
-  Yearly = 'Yearly',
-}
+const ResetModes = new Set(Object.values(ResetMode))
 
-export interface FieldState {
-  targetLimit: number | string,
-  kind: FieldKind,
-  currentValue?: number
-}
-
-@Entity('accountPlans', {
-  allowApiCrud: true
-})
+@Entity('accountPlans', entityBaseOptions)
 export class AccountPlan {
   @Fields.uuid()
   id!: string;
 
-  @Fields.string({
-    validate: Validators.required,
-  })
+  @Fields.string()
   tenant: string = '';
 
   @Fields.string({
@@ -30,7 +18,7 @@ export class AccountPlan {
   })
   accountId = '';
 
-  @Fields.uuid()
+  @Relations.toOne(() => Plan)
   planId?: string;
 
   @Fields.object()
@@ -39,7 +27,7 @@ export class AccountPlan {
   @Fields.string({
     validate: (({ resetMode }: any) => {
       // @ts-ignore
-      if (!ResetMode[resetMode]) {
+      if (!ResetModes.has(resetMode)) {
         throw 'reset mode not valid'
       }
     })

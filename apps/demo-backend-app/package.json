@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch server.ts",
+    "dev": "node --env-file .env --import tsx --watch server.ts",
+    "init-data": "node --env-file .env --import tsx init-data.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

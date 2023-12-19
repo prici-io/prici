@@ -1,15 +1,13 @@
 import { Entity, Fields, Validators } from 'remult';
+import { FieldInPlan } from './types';
+import { entityBaseOptions } from '../utils/entity-base-options';
 
-@Entity('plans', {
-  allowApiCrud: true
-})
+@Entity('plans', entityBaseOptions)
 export class Plan {
   @Fields.uuid()
   id!: string;
 
-  @Fields.string({
-    validate: Validators.required,
-  })
+  @Fields.string()
   tenant: string = '';
 
   @Fields.string()
@@ -22,5 +20,5 @@ export class Plan {
   priority = 1;
 
   @Fields.json()
-  fields: Array<{fieldId: string }> = []
+  fields: Array<FieldInPlan> = []
 }
