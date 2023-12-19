@@ -1,12 +1,11 @@
-import { Remult } from 'remult';
-import { Plan } from '../shared-remult/entities/plan';
-import { PlanField } from '../shared-remult/entities/plan-field';
-import { AccountPlan } from '../shared-remult/entities/account-plan';
-import AccountFieldsController from '../shared-remult/controllers/account-fields.controller';
 import { RequestInit } from 'node/globals';
+import { Remult } from 'remult';
+import { Plan } from '@prici/shared-remult/entities/plan';
+import { PlanField } from '@prici/shared-remult/plan-field';
+import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
+import AccountFieldsController from '@prici/shared-remult/controllers/account-fields.controller';
 
 class PriciSdk {
-
   #remult = new Remult();
   #accountFields = new AccountFieldsController()
 
@@ -14,8 +13,10 @@ class PriciSdk {
   PlanField = this.#remult.repo(PlanField);
   AccountPlan = this.#remult.repo(AccountPlan);
 
-  constructor({ token }: { token?: string } = {}) {
-    this.#remult.apiClient.url = 'http://0.0.0.0:9000/api'
+  constructor({ token, priciUBaseUrl }: { token?: string, priciUBaseUrl?: string } = {}) {
+    token = token || process.env.PRICI_TOKEN;
+    priciUBaseUrl = priciUBaseUrl || process.env.PRICI_BASE_URL;
+    this.#remult.apiClient.url = priciUBaseUrl + '/api'
     if (token) {
       this.#remult.apiClient.httpClient = (...args) => {
         const opts: RequestInit = args[1] || {}

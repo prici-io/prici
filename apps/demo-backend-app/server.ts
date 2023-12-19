@@ -2,7 +2,7 @@ import fastify from 'fastify'
 // @ts-ignore
 import PriciSdk from '../../libs/sdk';
 
-const sdk = new PriciSdk({ token: process.env.PRICI_TOKEN });
+const sdk = new PriciSdk();
 
 (async () => {
 

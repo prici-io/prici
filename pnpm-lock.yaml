@@ -47,6 +47,9 @@ importers:
 
   libs/sdk:
     dependencies:
+      '@prici/shared-remult':
+        specifier: workspace:^
+        version: link:../shared-remult
       remult:
         specifier: ^0.23.2
         version: 0.23.2
