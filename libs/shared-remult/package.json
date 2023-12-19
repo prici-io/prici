@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "homepage": "https://github.com/prici-io/prici",
+  "repository": {
+    "url": "https://github.com/prici-io/prici"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

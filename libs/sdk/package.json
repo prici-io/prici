@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "homepage": "https://github.com/prici-io/prici",
+  "repository": {
+    "url": "https://github.com/prici-io/prici"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +15,8 @@
   "dependencies": {
     "@prici/shared-remult": "workspace:^",
     "remult": "^0.23.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
