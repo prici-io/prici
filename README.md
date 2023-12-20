@@ -13,6 +13,7 @@ $ docker run -p 9000:9000 ghcr.io/prici-io/prici:main
 
 That's it. Now **prici** runs on port 9000.
 
+</br></br>
 -------
 ## Use a custom database
 
@@ -22,6 +23,7 @@ you can keep them for persistence by adding a volume to the container, e.g.:
 ```sh
 $ docker run -p 9000:9000 -v ./db:/app/apps/api/db ghcr.io/prici-io/prici:main
 ```
+</br>
 
 ### Postgres
 
@@ -30,6 +32,7 @@ Add an environment variable with the Postgres connection string.
 ```sh
 $ docker run -p 9000:9000 --env POSTGRES_URL=YOUR-DB-CONNECTION-STRING ghcr.io/prici-io/prici:main
 ```
+</br>
 
 ### MongoDB
 
@@ -39,7 +42,7 @@ Just so you know, you can add the DB name manually if your connection string doe
 ```sh
 $ docker run -p 9000:9000 --env MONGODB_URL=YOUR-MONGODB_URL --env MONGODB_DB_NAME=YOUR_DB_NAME_OPTIONAL ghcr.io/prici-io/prici:main
 ```
-
+</br></br>
 -------
 ## Node SDK
 
