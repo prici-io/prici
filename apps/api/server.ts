@@ -1,10 +1,8 @@
 import fastify from 'fastify'
-import path from 'node:path';
 import jwt from 'jsonwebtoken';
 import { remultFastify } from 'remult/remult-fastify'
 import { controllers } from './controllers';
-import { JsonDataProvider, UserInfo } from 'remult';
-import { JsonEntityFileStorage } from 'remult/server';
+import { UserInfo } from 'remult';
 import { entities } from '@prici/shared-remult';
 import { getDataProvider } from './services/data-provider.service';
 
