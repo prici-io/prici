@@ -24,5 +24,5 @@ export interface FieldState {
 
 export interface FieldInPlan {
   fieldId: string,
-  limit: number | boolean | string
+  value: number | boolean | string
 }

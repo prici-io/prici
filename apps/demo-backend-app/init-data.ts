@@ -21,7 +21,7 @@ const sdk = new PriciSdk({
     fields: [
       {
         fieldId: todosField.id,
-        limit: 3
+        value: 3
       }
     ]
   });
@@ -33,7 +33,7 @@ const sdk = new PriciSdk({
     fields: [
       {
         fieldId: todosField.id,
-        limit: 10
+        value: 10
       }
     ]
   });
