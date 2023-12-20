@@ -1,6 +1,11 @@
 import PriciSdk, { FieldKind, ResetMode } from '@prici/sdk';
+import * as fs from 'fs';
+import path from 'node:path';
 
-const sdk = new PriciSdk({ token: process.env.PRICI_TOKEN });
+const sdk = new PriciSdk({
+  token: process.env.PRICI_TOKEN || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnQiOiJkZWZhdWx0IiwiaWQiOiIxIn0.jSp5c6WCjtJ5E5c2325pWzMsaxpwDJnr6TcPcE2xTKA',
+  priciUBaseUrl: 'http://0.0.0.0:9000'
+});
 
 (async () => {
 
@@ -48,6 +53,11 @@ const sdk = new PriciSdk({ token: process.env.PRICI_TOKEN });
     }
   })
 
-  console.log('account', account)
+  console.log('account', account);
+
+
+
+  const envs = fs.readFileSync(path.join(process.cwd(), 'example.env'), 'utf8').toString()
+  fs.writeFileSync(path.join(process.cwd(), '.env'), envs.replace('PUT_HERE_FEATURE_ID', todosField.id))
 
 })().catch(console.error)

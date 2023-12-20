@@ -6,6 +6,7 @@ import { controllers } from './controllers';
 import { JsonDataProvider, UserInfo } from 'remult';
 import { JsonEntityFileStorage } from 'remult/server';
 import { entities } from '@prici/shared-remult';
+import { getDataProvider } from './services/data-provider.service';
 
 declare module 'fastify' {
   class FastifyRequest {
@@ -36,8 +37,7 @@ declare module 'fastify' {
 
   await server.register(
     remultFastify({
-      dataProvider: async () =>
-        new JsonDataProvider(new JsonEntityFileStorage(path.join(process.cwd(), 'db'))),
+      dataProvider: await getDataProvider(),
       entities,
       controllers,
       async getUser(req) {

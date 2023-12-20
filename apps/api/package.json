@@ -14,6 +14,8 @@
     "@prici/shared-remult": "workspace:^",
     "fastify": "^4.25.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.3.0",
+    "pg": "^8.11.3",
     "remult": "^0.23.2",
     "tsx": "^4.6.2"
   },
