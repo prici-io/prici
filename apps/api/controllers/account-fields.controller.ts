@@ -30,7 +30,7 @@ export class AccountFieldsController implements BaseController {
   }
 
   @BackendMethod({ allowed: true })
-  async getFieldState(accountId: string, fieldId: string): Promise<{ isAllowed: boolean, state?: FieldState }> {
+  async getFieldState(accountId: string, fieldId: string, allowedValue?: number | string): Promise<{ isAllowed: boolean, state?: FieldState }> {
     const accountPlanRepo = remult.repo(AccountPlan);
     const accountPlan = await accountPlanRepo.findFirst({ accountId });
 
@@ -40,15 +40,23 @@ export class AccountFieldsController implements BaseController {
 
     const state = accountPlan.state[fieldId];
 
+    let isAllowed = false;
+
+    switch (state.kind) {
+      case FieldKind.Boolean:
+        isAllowed = !!state.currentValue;
+        break;
+      case FieldKind.Number:
+        const diff = Number(state.targetLimit) - Number(state.currentValue);
+        isAllowed = diff > 0 && (!allowedValue || diff >= Number(allowedValue))
+        break;
+      case FieldKind.String:
+        isAllowed = typeof allowedValue === 'undefined' ? true : state.currentValue === allowedValue;
+        break
+    }
+
     return {
-      isAllowed: state && (
-        state.kind === FieldKind.Boolean ?
-          !!state.currentValue :
-          (state.kind === FieldKind.Number ?
-              (state.currentValue as number) < (state.targetLimit as number) :
-              true
-          )
-      ),
+      isAllowed,
       state
     };
   }

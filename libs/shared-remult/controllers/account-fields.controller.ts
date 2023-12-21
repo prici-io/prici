@@ -10,7 +10,7 @@ export default class AccountFieldsController {
   }
 
   @BackendMethod({ allowed: true })
-  async getFieldState(accountId: string, fieldId: string): Promise<{isAllowed: boolean, state?: FieldState}> {
+  async getFieldState(accountId: string, fieldId: string, allowedValue?: number | string): Promise<{isAllowed: boolean, state?: FieldState}> {
     return {
       isAllowed: true,
       state: {
