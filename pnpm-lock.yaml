@@ -57,6 +57,12 @@ importers:
 
   apps/remult-explorer: {}
 
+  libs/cli:
+    dependencies:
+      tsx:
+        specifier: ^4.6.2
+        version: 4.6.2
+
   libs/sdk:
     dependencies:
       '@prici/shared-remult':
