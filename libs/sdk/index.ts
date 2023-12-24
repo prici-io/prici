@@ -4,11 +4,14 @@ import { PlanField } from '@prici/shared-remult/entities/plan-field';
 import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
 import AccountFieldsController from '@prici/shared-remult/controllers/account-fields.controller';
 
-export * from '@prici/shared-remult/entities/types'
+import { FieldKind, ResetMode, FieldState, FieldInPlan } from '@prici/shared-remult/entities/types'
 
-export {Plan, PlanField, AccountPlan}
+export interface PriciSdkOptions {
+  token?: string,
+  priciUBaseUrl?: string
+}
 
-class PriciSdk {
+export class PriciSdk {
   #remult = new Remult();
   #accountFields = new AccountFieldsController()
 
@@ -16,7 +19,7 @@ class PriciSdk {
   PlanField = this.#remult.repo(PlanField);
   AccountPlan = this.#remult.repo(AccountPlan);
 
-  constructor({ token, priciUBaseUrl }: { token?: string, priciUBaseUrl?: string } = {}) {
+  constructor({ token, priciUBaseUrl }: PriciSdkOptions = {}) {
     token = token || process.env.PRICI_TOKEN;
     priciUBaseUrl = priciUBaseUrl || process.env.PRICI_BASE_URL;
     this.#remult.apiClient.url = priciUBaseUrl + '/api'
@@ -45,6 +48,12 @@ class PriciSdk {
 
 }
 
+export const initialize = (opts: PriciSdkOptions = {}) => {
+  return new PriciSdk(opts);
+}
+
 export default PriciSdk;
+
+export { Plan, PlanField, AccountPlan, FieldKind, ResetMode, FieldState, FieldInPlan }
 
 
