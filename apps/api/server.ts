@@ -5,6 +5,8 @@ import { controllers } from './controllers';
 import { UserInfo } from 'remult';
 import { entities } from '@prici/shared-remult';
 import { getDataProvider } from './services/data-provider.service';
+import { host, jwtSecret, port } from './config';
+import { checkAuthPlugin } from './hooks/check-auth.plugin';
 
 declare module 'fastify' {
   class FastifyRequest {
@@ -15,23 +17,7 @@ declare module 'fastify' {
 (async () => {
   const server = fastify()
 
-  server.addHook('preHandler', (request, reply, done) => {
-    const token = (request.headers['authorization'] || request.headers['Authorization'])?.toString().split(' ')[1] || '';
-
-    try {
-      request.user = jwt.verify(token, process.env.JWT_SECRET as string) as UserInfo;
-
-      (request.query as any).tenant = request.user.tenant;
-      if (request.body as any) {
-        (request.body as any).tenant = request.user.tenant;
-      }
-
-      done()
-    } catch (error) {
-      reply.statusCode = 401;
-      done(new Error('Authorization error: token is not valid'))
-    }
-  })
+  await server.register(checkAuthPlugin)
 
   await server.register(
     remultFastify({
@@ -44,7 +30,6 @@ declare module 'fastify' {
     }),
   )
 
-  const port = Number(process.env.PORT || 9000);
-  await server.listen({ host: process.env.HOST || '0.0.0.0', port })
-  console.log('Listening on port ' + port)
+  await server.listen({ host, port })
+  console.log(`listening on ${host}:${port}`)
 })()
