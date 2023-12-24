@@ -6,9 +6,14 @@ You can use Docker's standalone service and run it locally or on your machine.
 -------
 ## Getting started
 
+Create a `.env` file with the following content:
+```dotenv
+JWT_SECRET=something-difficult-to-break
+```
+
 Run it locally or wherever:
-```sh
-$ docker run -p 9000:9000 ghcr.io/prici-io/prici:main
+```shell
+$ docker run -p 9000:9000 --env-file=.env ghcr.io/prici-io/prici:main
 ```
 
 That's it. Now **prici** runs on port 9000.
@@ -17,11 +22,11 @@ That's it. Now **prici** runs on port 9000.
 -------
 ## Use a custom database
 
-If you don't mention any database, it will use local JSON files.
+If you don't mention any database connection, it will use local JSON files.
 you can keep them for persistence by adding a volume to the container, e.g.:
 
 ```sh
-$ docker run -p 9000:9000 -v ./db:/app/apps/api/db ghcr.io/prici-io/prici:main
+$ docker run -p 9000:9000 --env-file=.env -v ./db:/app/apps/api/db ghcr.io/prici-io/prici:main
 ```
 </br>
 
