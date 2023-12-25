@@ -1,11 +1,15 @@
-import { Entity, Fields, Validators } from 'remult';
-import { FieldKind } from './types';
+import { Entity, EntityOptions, Fields, Validators } from 'remult';
+import { BaseEntity, FieldKind } from './types';
 import { entityBaseOptions } from '../utils/entity-base-options';
 
 const fieldKinds = new Set(Object.values(FieldKind))
 
-@Entity('planFields', entityBaseOptions)
-export class PlanField {
+@Entity('planFields', entityBaseOptions, (options: EntityOptions) => {
+  if (PlanField.applyOptions) {
+    PlanField.applyOptions(options);
+  }
+})
+export class PlanField extends BaseEntity {
   @Fields.uuid()
   id!: string;
 

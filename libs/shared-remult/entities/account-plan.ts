@@ -1,12 +1,16 @@
-import { Entity, Fields, Relations, remult, Validators } from 'remult';
-import { FieldState, ResetMode } from './types';
+import { Entity, EntityOptions, Fields, Relations, remult, Validators } from 'remult';
+import { BaseEntity, FieldState, ResetMode } from './types';
 import { entityBaseOptions } from '../utils/entity-base-options';
 import { Plan } from './plan';
 
 const ResetModes = new Set(Object.values(ResetMode))
 
-@Entity('accountPlans', entityBaseOptions)
-export class AccountPlan {
+@Entity('accountPlans', entityBaseOptions, (options: EntityOptions) => {
+  if (AccountPlan.applyOptions) {
+    AccountPlan.applyOptions(options);
+  }
+})
+export class AccountPlan extends BaseEntity {
   @Fields.uuid()
   id!: string;
 
@@ -18,8 +22,8 @@ export class AccountPlan {
   })
   accountId = '';
 
-  @Relations.toOne(() => Plan)
-  planId?: string;
+  @Relations.toOne(() => Plan, { dbName: 'planId' })
+  planId?: Plan;
 
   @Fields.object()
   state: Record<string, FieldState> = {}
@@ -33,5 +37,4 @@ export class AccountPlan {
     })
   })
   resetMode = ResetMode.Manual
-
 }

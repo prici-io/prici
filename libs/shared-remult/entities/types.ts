@@ -1,6 +1,14 @@
+import { EntityOptions } from 'remult';
+
 declare module 'remult' {
   export interface UserInfo {
     tenant: string;
+  }
+}
+
+export class BaseEntity {
+  static applyOptions(options: EntityOptions): void {
+
   }
 }
 
@@ -17,9 +25,9 @@ export enum ResetMode {
 }
 
 export interface FieldState {
-  targetLimit: number | string,
+  targetLimit: number | string | boolean,
   kind: FieldKind,
-  currentValue?: number
+  currentValue?: number | string | boolean
 }
 
 export interface FieldInPlan {

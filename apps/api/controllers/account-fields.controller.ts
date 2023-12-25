@@ -24,7 +24,7 @@ export class AccountFieldsController implements BaseController {
     if (!accountField.currentValue) {
       accountField.currentValue = 0;
     }
-    accountField.currentValue += incrementAmount;
+    accountField.currentValue = (accountField.currentValue as number) + incrementAmount;
 
     await accountPlanRepo.update(accountPlan.id, { state: accountPlan.state });
   }

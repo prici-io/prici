@@ -1,12 +1,11 @@
 import fastify from 'fastify'
-import jwt from 'jsonwebtoken';
 import { remultFastify } from 'remult/remult-fastify'
 import { controllers } from './controllers';
 import { UserInfo } from 'remult';
-import { entities } from '@prici/shared-remult';
 import { getDataProvider } from './services/data-provider.service';
-import { host, jwtSecret, port } from './config';
+import { host, port } from './config';
 import { checkAuthPlugin } from './hooks/check-auth.plugin';
+import { entitiesList } from './entities';
 
 declare module 'fastify' {
   class FastifyRequest {
@@ -17,12 +16,12 @@ declare module 'fastify' {
 (async () => {
   const server = fastify()
 
-  await server.register(checkAuthPlugin)
+  await checkAuthPlugin(server)
 
   await server.register(
     remultFastify({
       dataProvider: await getDataProvider(),
-      entities,
+      entities: entitiesList,
       controllers,
       async getUser(req) {
         return req.user || { id: '', tenant: 'default' };
