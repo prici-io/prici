@@ -6,11 +6,11 @@ import { PlanField } from '@prici/shared-remult/entities/plan-field';
 
 AccountPlan.applyOptions = function (options: EntityOptions<AccountPlan>) {
   options.saving = async (entity, event) => {
-    if (!(event.isNew && entity.planId)) {
+    if (!(event.isNew && entity.plan)) {
       return;
     }
 
-    const plan = entity.planId;
+    const plan = entity.plan;
 
     const allFields = await remult
       .repo(PlanField)

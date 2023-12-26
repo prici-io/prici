@@ -23,7 +23,7 @@ export class AccountPlan extends BaseEntity {
   accountId = '';
 
   @Relations.toOne(() => Plan, { dbName: 'planId' })
-  planId?: Plan;
+  plan?: Plan;
 
   @Fields.object()
   state: Record<string, FieldState> = {}

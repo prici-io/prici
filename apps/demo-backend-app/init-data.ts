@@ -42,15 +42,8 @@ const sdk = new PriciSdk({
 
   const account = await sdk.AccountPlan.insert({
     accountId: 'demo-account',
-    planId: plan.id,
+    plan: plan,
     resetMode: ResetMode.Manual,
-    state: {
-      [todosField.id]: {
-        targetLimit: 3,
-        kind: FieldKind.Number,
-        currentValue: 0
-      }
-    }
   })
 
   console.log('account', account);
