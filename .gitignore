@@ -6,3 +6,5 @@ dist
 .vscode
 .DS_Store
 db
+documentation/.vitepress/dist
+documentation/.vitepress/cache

@@ -5,10 +5,12 @@
   "main": "index.js",
   "workspaces": [
     "apps/*",
-    "libs/*"
+    "libs/*",
+    "documentation/*"
   ],
   "scripts": {
     "start": "cd apps/api && pnpm start",
+    "docs": "cd documentation && pnpm dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
