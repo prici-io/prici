@@ -75,7 +75,7 @@ An account plan is the actual state of a plan for a specific account
 
 const demoAccount = await sdk.AccountPlan.insert({
   accountId: 'demo-account',
-  planId: basicPlan.id,
+  planId: plan.id,
   resetMode: ResetMode.Manual,
   state: {
     [wiggleField.id]: {
