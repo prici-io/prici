@@ -25,4 +25,10 @@ export class Plan extends BaseEntity {
 
   @Fields.json()
   fields: Array<FieldInPlan> = []
+
+  @Fields.createdAt()
+  createdAt = new Date;
+
+  @Fields.updatedAt()
+  updatedAt = new Date;
 }

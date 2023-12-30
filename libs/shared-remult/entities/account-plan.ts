@@ -37,4 +37,10 @@ export class AccountPlan extends BaseEntity {
     })
   })
   resetMode = ResetMode.Manual
+
+  @Fields.createdAt()
+  createdAt = new Date;
+
+  @Fields.updatedAt()
+  updatedAt = new Date;
 }

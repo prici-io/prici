@@ -52,7 +52,7 @@ export class AccountFieldsController implements BaseController {
         break;
       case FieldKind.String:
         isAllowed = typeof allowedValue === 'undefined' ? true : state.currentValue === allowedValue;
-        break
+        break;
     }
 
     return {

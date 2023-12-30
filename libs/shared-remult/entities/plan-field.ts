@@ -30,4 +30,10 @@ export class PlanField extends BaseEntity {
     }
   })
   kind = FieldKind.Number;
+
+  @Fields.createdAt()
+  createdAt = new Date;
+
+  @Fields.updatedAt()
+  updatedAt = new Date;
 }
