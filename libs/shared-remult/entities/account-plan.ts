@@ -1,4 +1,4 @@
-import { Entity, EntityOptions, Fields, Relations, remult, Validators } from 'remult';
+import { Entity, EntityOptions, Fields, Relations, Validators } from 'remult';
 import { BaseEntity, FieldState, ResetMode } from './types';
 import { entityBaseOptions } from '../utils/entity-base-options';
 import { Plan } from './plan';
