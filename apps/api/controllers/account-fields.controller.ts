@@ -8,6 +8,7 @@ export class AccountFieldsController implements BaseController {
 
   @BackendMethod({ allowed: true })
   async incrementField(accountId: string, fieldId: string, incrementAmount: number | any = 1): Promise<any> {
+    incrementAmount = incrementAmount || 1;
     if (typeof incrementAmount !== 'number' || isNaN(incrementAmount)) {
       throw new Error('increment amount must be a numeric value');
     }
