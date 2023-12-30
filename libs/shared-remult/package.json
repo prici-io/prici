@@ -13,7 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "remult": "^0.23.2"
+    "remult": "^0.24.1"
   },
   "publishConfig": {
     "access": "public"

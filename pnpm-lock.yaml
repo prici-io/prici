@@ -33,8 +33,8 @@ importers:
         specifier: ^8.11.3
         version: 8.11.3
       remult:
-        specifier: ^0.23.2
-        version: 0.23.2
+        specifier: ^0.24.1
+        version: 0.24.1
       tsx:
         specifier: ^4.6.2
         version: 4.6.2
@@ -55,8 +55,6 @@ importers:
         specifier: ^4.6.2
         version: 4.6.2
 
-  apps/remult-explorer: {}
-
   libs/cli:
     dependencies:
       tsx:
@@ -75,8 +73,8 @@ importers:
   libs/shared-remult:
     dependencies:
       remult:
-        specifier: ^0.23.2
-        version: 0.23.2
+        specifier: ^0.24.1
+        version: 0.24.1
 
 packages:
 
@@ -887,6 +885,15 @@ packages:
 
   /remult@0.23.2:
     resolution: {integrity: sha512-ptwiv/mAhZe0d1MrPKGNJYS+4fA23ZrEOySo2fLz/ro9Hh41xqE/F8Bj9klNFCPxM6TMsZvZJiHwbNb6UaKL4Q==}
+    dependencies:
+      '@paralleldrive/cuid2': 2.2.2
+      reflect-metadata: 0.1.14
+      tslib: 2.6.2
+      uuid: 8.3.2
+    dev: false
+
+  /remult@0.24.1:
+    resolution: {integrity: sha512-SajaCQ+rEbKJR7tXDWU3UiyKCkRcuC+Ht2hcGhD/r7Posu5qFK19RsgtNHzActH03Zg+fBYP/fff8+XmmfNVnQ==}
     dependencies:
       '@paralleldrive/cuid2': 2.2.2
       reflect-metadata: 0.1.14
