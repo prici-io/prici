@@ -22,8 +22,11 @@ export class AccountPlan extends BaseEntity {
   })
   accountId = '';
 
-  @Relations.toOne(() => Plan, { dbName: 'planId' })
-  plan?: Plan;
+  @Relations.toMany(() => Plan)
+  plans: Plan[] = [];
+
+  @Fields.json()
+  plansExpirations: Record<string, Date> = {}
 
   @Fields.object()
   state: Record<string, FieldState> = {}
@@ -36,7 +39,7 @@ export class AccountPlan extends BaseEntity {
       }
     })
   })
-  resetMode = ResetMode.Manual
+  resetMode = ResetMode.Manual;
 
   @Fields.createdAt()
   createdAt = new Date;
