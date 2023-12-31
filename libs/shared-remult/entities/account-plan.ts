@@ -22,12 +22,6 @@ export class AccountPlan extends BaseEntity {
   })
   accountId = '';
 
-  @Relations.toMany(() => Plan)
-  plans: Plan[] = [];
-
-  @Fields.json()
-  plansExpirations: Record<string, Date> = {}
-
   @Fields.object()
   state: Record<string, FieldState> = {}
 

@@ -16,7 +16,7 @@ const sdk = new PriciSdk({
 
   console.log('todosField', todosField)
 
-  const plan = await sdk.Plan.insert({
+  const basicPlan = await sdk.Plan.insert({
     name: 'basic',
     fields: [
       {
@@ -26,7 +26,7 @@ const sdk = new PriciSdk({
     ]
   });
 
-  console.log('plan', plan)
+  console.log('basicPlan', basicPlan)
 
   const advancedPlan = await sdk.Plan.insert({
     name: 'advanced',
@@ -42,11 +42,20 @@ const sdk = new PriciSdk({
 
   const account = await sdk.AccountPlan.insert({
     accountId: 'demo-account',
-    plan: plan,
+    plans: [basicPlan],
     resetMode: ResetMode.Manual,
   })
 
   console.log('account', account);
+
+
+  const multiPlanAccount = await sdk.AccountPlan.insert({
+    accountId: 'demo-account-with-multiple-plans',
+    plans: [basicPlan, advancedPlan],
+    resetMode: ResetMode.Manual,
+  })
+
+  console.log('multiPlanAccount', multiPlanAccount);
 
 
 

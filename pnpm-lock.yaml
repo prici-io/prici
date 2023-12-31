@@ -67,8 +67,8 @@ importers:
         specifier: workspace:^
         version: link:../shared-remult
       remult:
-        specifier: ^0.23.2
-        version: 0.23.2
+        specifier: ^0.24.1
+        version: 0.24.1
 
   libs/shared-remult:
     dependencies:
@@ -881,15 +881,6 @@ packages:
 
   /reflect-metadata@0.1.14:
     resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
-    dev: false
-
-  /remult@0.23.2:
-    resolution: {integrity: sha512-ptwiv/mAhZe0d1MrPKGNJYS+4fA23ZrEOySo2fLz/ro9Hh41xqE/F8Bj9klNFCPxM6TMsZvZJiHwbNb6UaKL4Q==}
-    dependencies:
-      '@paralleldrive/cuid2': 2.2.2
-      reflect-metadata: 0.1.14
-      tslib: 2.6.2
-      uuid: 8.3.2
     dev: false
 
   /remult@0.24.1:
