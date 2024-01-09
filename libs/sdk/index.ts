@@ -38,7 +38,7 @@ export class PriciSdk {
     }
   }
 
-  incrementField(accountId: string, fieldId: string, incrementAmount?: any) {
+  incrementField(accountId: string, fieldId: string, incrementAmount?: number | any) {
     return this.#remult.call(this.#accountFields.incrementField, this.#accountFields, accountId, fieldId, incrementAmount)
   }
 

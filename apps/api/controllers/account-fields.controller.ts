@@ -1,7 +1,7 @@
 import { BackendMethod, Controller, remult } from 'remult';
 import BaseController from '@prici/shared-remult/controllers/account-fields.controller'
 import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
-import { FieldKind, FieldState } from '@prici//shared-remult';
+import { CalculatedFieldState, FieldKind } from '@prici//shared-remult';
 
 @Controller('account-fields')
 export class AccountFieldsController implements BaseController {
@@ -31,15 +31,37 @@ export class AccountFieldsController implements BaseController {
   }
 
   @BackendMethod({ allowed: true })
-  async getFieldState(accountId: string, fieldId: string, allowedValue?: number | string): Promise<{ isAllowed: boolean, state?: FieldState }> {
+  async getFieldState(accountId: string, fieldId: string, allowedValue?: number | string): Promise<{
+    isAllowed: boolean,
+    state?: CalculatedFieldState
+  }> {
     const accountPlanRepo = remult.repo(AccountPlan);
-    const accountPlan = await accountPlanRepo.findFirst({ accountId });
+    const accountPlans = await accountPlanRepo.find({ where: { accountId } });
 
-    if (!accountPlan) {
+    if (!accountPlans?.length) {
       throw new Error('Account does not have any plan');
     }
 
-    const state = accountPlan.state[fieldId];
+    const state: CalculatedFieldState = accountPlans.reduce((aggregatedState: CalculatedFieldState | undefined, accountPlan) => {
+      const state = accountPlan.state[fieldId];
+
+      if (!aggregatedState) {
+        return {
+          ...state,
+        } as CalculatedFieldState
+      }
+
+      if (aggregatedState.kind === FieldKind.Boolean) {
+        aggregatedState.currentValue = !!(aggregatedState.currentValue || state.currentValue);
+      } else if (aggregatedState.kind === FieldKind.Number) {
+        aggregatedState.currentValue = Number(aggregatedState.currentValue) + Number(state.currentValue);
+        aggregatedState.targetLimit = Number(aggregatedState.targetLimit) + Number(state.targetLimit);
+      } else if (aggregatedState.kind === FieldKind.String) {
+        aggregatedState.currentValue = [aggregatedState.currentValue, state.currentValue].flat() as string[]
+      }
+
+      return aggregatedState;
+    }, undefined) || { kind: FieldKind.Boolean, currentValue: true, targetLimit: true }
 
     let isAllowed = false;
 
@@ -52,7 +74,7 @@ export class AccountFieldsController implements BaseController {
         isAllowed = diff > 0 && (!allowedValue || diff >= Number(allowedValue))
         break;
       case FieldKind.String:
-        isAllowed = typeof allowedValue === 'undefined' ? true : state.currentValue === allowedValue;
+        isAllowed = typeof allowedValue === 'undefined' ? true : (state.currentValue as string[]).includes(allowedValue.toString())
         break;
     }
 

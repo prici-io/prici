@@ -30,6 +30,12 @@ export interface FieldState {
   currentValue?: number | string | boolean
 }
 
+export interface CalculatedFieldState {
+  targetLimit: number | string | boolean,
+  kind: FieldKind,
+  currentValue?: number | string[] | boolean
+}
+
 export interface FieldInPlan {
   fieldId: string,
   value: number | boolean | string

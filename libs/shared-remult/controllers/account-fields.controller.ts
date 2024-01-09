@@ -1,9 +1,9 @@
 import { BackendMethod, Controller } from 'remult';
-import { FieldKind, FieldState } from '../entities/types';
+import { CalculatedFieldState, FieldKind } from '../entities/types';
 
 export interface FieldStateResult {
   isAllowed: boolean,
-  state?: FieldState
+  state?: CalculatedFieldState
 }
 
 @Controller('account-fields')
