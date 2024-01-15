@@ -42,8 +42,8 @@ export class PriciSdk {
     return this.#remult.call(this.#accountFields.incrementField, this.#accountFields, accountId, fieldId, incrementAmount)
   }
 
-  getFieldState(accountId: string, fieldId: string) {
-    return this.#remult.call(this.#accountFields.getFieldState, this.#accountFields, accountId, fieldId)
+  getFieldState(accountId: string, fieldId: string, allowedValue?: number | string) {
+    return this.#remult.call(this.#accountFields.getFieldState, this.#accountFields, accountId, fieldId, allowedValue)
   }
 
 }
