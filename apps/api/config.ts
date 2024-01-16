@@ -26,7 +26,7 @@ function getKafkaConfig(): KafkaConfig | undefined {
   }
 
   const brokers = process.env.KAFKA_URL.split(',');
-  const clientId = process.env.KAFKA_CLIENT_ID;
+  const clientId = process.env.KAFKA_CLIENT_ID || 'prici-api'
   const saslMechanism = process.env.KAFKA_SASL_MECHANISM as 'plain' | undefined
 
   let sasl: SASLOptions | Mechanism | undefined

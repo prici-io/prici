@@ -6,6 +6,8 @@ import { getDataProvider } from './services/data-provider.service';
 import { host, port } from './config';
 import { checkAuthPlugin } from './hooks/check-auth.plugin';
 import { entitiesList } from './entities';
+import { registerToEvents } from './services/event-bus-provider.service';
+import { initEventBus } from './hooks/event-bus.transmitter';
 
 declare module 'fastify' {
   class FastifyRequest {
@@ -31,4 +33,6 @@ declare module 'fastify' {
 
   await server.listen({ host, port })
   console.log(`listening on ${host}:${port}`)
+
+  await initEventBus()
 })()

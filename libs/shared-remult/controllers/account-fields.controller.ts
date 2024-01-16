@@ -1,6 +1,14 @@
 import { BackendMethod, Controller } from 'remult';
 import { CalculatedFieldState, FieldKind } from '../entities/types';
 
+
+export interface IncrementFieldEvent {
+  type: 'incrementField';
+  accountId: string;
+  fieldId: string;
+  incrementAmount: number | any;
+}
+
 export interface FieldStateResult {
   isAllowed: boolean,
   state?: CalculatedFieldState
