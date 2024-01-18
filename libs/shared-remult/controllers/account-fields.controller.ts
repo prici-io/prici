@@ -7,6 +7,7 @@ export interface IncrementFieldEvent {
   accountId: string;
   fieldId: string;
   incrementAmount: number | any;
+  tenant?: string;
 }
 
 export interface FieldStateResult {

@@ -2,6 +2,7 @@ import { EntityOptions, remult } from 'remult';
 import { entities, FieldKind, FieldState } from '@prici/shared-remult';
 import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
 import { PlanField } from '@prici/shared-remult/entities/plan-field';
+import { defaultTenant } from '../config';
 
 
 AccountPlan.applyOptions = function (options: EntityOptions<AccountPlan>) {
@@ -11,10 +12,11 @@ AccountPlan.applyOptions = function (options: EntityOptions<AccountPlan>) {
     }
 
     const plan = entity.plan;
+    const tenant = remult.user?.tenant || defaultTenant;
 
     const allFields = await remult
       .repo(PlanField)
-      .find({ where: { id: { $in: plan.fields.map(f => f.fieldId) } } });
+      .find({ where: { id: { $in: plan.fields.map(f => f.fieldId) }, tenant } });
 
     const fieldsMap = allFields.reduce((map, field) => {
       map[field.id] = field;

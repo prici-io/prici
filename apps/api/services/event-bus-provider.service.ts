@@ -37,17 +37,20 @@ async function loadKafka() {
           const data = JSON.parse(message.value?.toString() || '{}')
           await callback(data);
         } catch {
-          await producer.send({
-            topic: kafkaTopics.incomingReply,
-            messages: [
-              {
-                value: JSON.stringify({
-                  error: 'failed to parse message',
-                  givenMessage: message.value?.toString()
-                })
-              },
-            ],
-          })
+          // submit the error to dead letter if configured
+          if (kafkaTopics.incomingDeadLetter) {
+            await producer.send({
+              topic: kafkaTopics.incomingDeadLetter,
+              messages: [
+                {
+                  value: JSON.stringify({
+                    error: 'prici failed to process the message',
+                    givenMessage: message.value?.toString()
+                  })
+                },
+              ],
+            })
+          }
         }
       },
     });

@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { KafkaConfig, Mechanism, SASLOptions } from 'kafkajs';
 
+export const defaultTenant = process.env.DEFAULT_TENANT || 'default'
 
 export const jwtSecret: string = getJwtSecret();
 
@@ -14,7 +15,7 @@ export const kafkaTopics = {
   incoming: process.env.KAFKA_TOPIC_INCOMING || 'prici-incoming',
   outgoing: process.env.KAFKA_TOPIC_OUTGOING || 'prici-outgoing',
   incomingReply: process.env.KAFKA_TOPIC_INCOMING_REPLY || 'prici-incoming-reply',
-  incomingDeadLetter: process.env.KAFKA_TOPIC_INCOMING_DEAD_LETTER || 'prici-incoming-dead-letter',
+  incomingDeadLetter: process.env.KAFKA_TOPIC_INCOMING_DEAD_LETTER,
 };
 export const kafkaGroup = process.env.KAFKA_GROUP_ID || 'prici-api';
 

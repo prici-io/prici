@@ -2,6 +2,7 @@ import { BackendMethod, Controller, remult } from 'remult';
 import BaseController from '@prici/shared-remult/controllers/account-fields.controller'
 import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
 import { CalculatedFieldState, FieldKind } from '@prici//shared-remult';
+import { defaultTenant } from '../config';
 
 @Controller('account-fields')
 export class AccountFieldsController implements BaseController {
@@ -13,8 +14,10 @@ export class AccountFieldsController implements BaseController {
       throw new Error('increment amount must be a numeric value');
     }
 
+    const tenant = remult.user?.tenant || defaultTenant;
+
     const accountPlanRepo = remult.repo(AccountPlan);
-    const accountPlan = await accountPlanRepo.findFirst({ accountId });
+    const accountPlan = await accountPlanRepo.findFirst({ accountId, tenant });
 
     const accountField = accountPlan.state[fieldId];
 
