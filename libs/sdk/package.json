@@ -17,6 +17,14 @@
     "@prici/shared-remult": "workspace:^",
     "remult": "^0.24.1"
   },
+  "peerDependencies": {
+    "@nestjs/common": "^9.0.0 || ^10.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/common": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public"
   }

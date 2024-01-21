@@ -8,3 +8,4 @@ dist
 db
 documentation/.vitepress/dist
 documentation/.vitepress/cache
+libs/sdk/**/*.js
