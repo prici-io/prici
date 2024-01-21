@@ -1,13 +1,8 @@
 import {Controller, Get, Post, Body, UseGuards} from '@nestjs/common';
 import {AppService} from './app.service';
-import PriciSdk from '@prici/sdk';
 import {IsAllowedGuard} from "@prici/sdk/nest"
-import * as process from "process";
+import { priciSdk } from "./common/prici";
 
-const sdk = new PriciSdk({
-    priciUBaseUrl: process.env.PRICI_BASE_URL,
-    token: process.env.PRICI_TOKEN
-});
 
 const featureId = process.env.TODOS_FEATURE_ID as string;
 
@@ -23,7 +18,7 @@ export class AppController {
 
     @Post("todos")
     @UseGuards(new IsAllowedGuard({
-        sdk,
+        sdk: priciSdk,
         errorMessage: "User is out of quota",
         getAccountId: (_) => "demo-account",
         getFieldId: (_) => featureId
