@@ -14,8 +14,10 @@
     "@prici/shared-remult": "workspace:^",
     "fastify": "^4.25.0",
     "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
     "mongodb": "^6.3.0",
     "pg": "^8.11.3",
+    "redis": "^4.6.12",
     "remult": "^0.24.1",
     "tsx": "^4.6.2"
   },
