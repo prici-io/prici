@@ -14,9 +14,9 @@ You can use the standalone service using Docker and run it locally or on your ma
 Create an SDK instance:
 
 ```typescript
-import PriciSdk from '@prici/sdk';
+import { initialize } from '@prici/sdk';
 
-const sdk = new PriciSdk({
+const sdk = initialize({
   token: process.env.PRICI_TOKEN,
   priciUBaseUrl: process.env.PRICI_BASE_URL
 });

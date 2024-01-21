@@ -17,4 +17,3 @@ $ docker run -p 9000:9000 --env-file=.env ghcr.io/prici-io/prici:main
 ```
 
 That's it. Now **prici** runs on port 9000.
-

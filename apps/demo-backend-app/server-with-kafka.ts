@@ -1,14 +1,27 @@
 import fastify from 'fastify'
 import { initialize } from '@prici/sdk';
+import { Kafka } from 'kafkajs';
 
-const sdk = initialize()
+
+const kafka = new Kafka({
+  clientId: 'demo-backend-app',
+  brokers: ['localhost:9092']
+})
+
+const kafkaProducer = kafka.producer();
+kafkaProducer.connect()
+
+const sdk = initialize({
+  kafka: {
+    producer: kafkaProducer,
+    topic: 'prici-incoming'
+  }
+});
 
 const featureId = process.env.TODOS_FEATURE_ID as string;
 
 (async () => {
-
   const server = fastify()
-
   const todos: any[] = [];
 
   server.get('/api/todos', () => {
@@ -30,7 +43,11 @@ const featureId = process.env.TODOS_FEATURE_ID as string;
 
     todos.push(todo);
 
-    sdk.incrementField('demo-account', featureId).catch()
+    sdk.kafka.incrementField({
+      tenant: 'default',
+      accountId: 'demo-account',
+      fieldId: featureId,
+    });
 
     return todo;
   })

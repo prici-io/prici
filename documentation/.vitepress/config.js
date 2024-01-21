@@ -8,16 +8,31 @@ module.exports = {
         ],
         sidebar: [
             {
-                text: "Introduction",
+                text: "Home",
+                link: '/',
                 items: [
                     {
                         text: "Introduction",
-                        link: "/"
+                        link: "/content/introduction/index"
                     },
                     {
-                        text: "Sdk Details",
-                        link: "/sdk"
+                        text: "Custom Database",
+                        link: "/content/introduction/custom-database"
                     },
+                    {
+                        text: "Kafka Integration",
+                        link: "/content/introduction/kafka"
+                    },
+                    {
+                        text: 'SDK',
+                        items: [
+                            {
+                                text: 'Node.js SDK',
+                                link: "/content/sdk/node-sdk"
+
+                            }
+                        ]
+                    }
                 ]
             },
         ]
