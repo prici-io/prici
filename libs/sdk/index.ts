@@ -2,26 +2,34 @@ import { Remult } from 'remult';
 import { Plan } from '@prici/shared-remult/entities/plan';
 import { PlanField } from '@prici/shared-remult/entities/plan-field';
 import { AccountPlan } from '@prici/shared-remult/entities/account-plan';
-import AccountFieldsController from '@prici/shared-remult/controllers/account-fields.controller';
+import AccountFieldsController, {
+  IncrementFieldEvent
+} from '@prici/shared-remult/controllers/account-fields.controller';
 
 import { FieldKind, ResetMode, FieldState, FieldInPlan } from '@prici/shared-remult/entities/types'
 
 export interface PriciSdkOptions {
   token?: string,
-  priciUBaseUrl?: string
+  priciUBaseUrl?: string,
+  kafka?: {
+    producer: any;
+    topic: string;
+  }
 }
 
 export class PriciSdk {
   #remult = new Remult();
   #accountFields = new AccountFieldsController()
+  #kafkaOptions?: PriciSdkOptions['kafka'];
 
   Plan = this.#remult.repo(Plan);
   PlanField = this.#remult.repo(PlanField);
   AccountPlan = this.#remult.repo(AccountPlan);
 
-  constructor({ token, priciUBaseUrl }: PriciSdkOptions = {}) {
+  constructor({ token, priciUBaseUrl, kafka }: PriciSdkOptions = {}) {
     token = token || process.env.PRICI_TOKEN;
     priciUBaseUrl = priciUBaseUrl || process.env.PRICI_BASE_URL;
+    this.#kafkaOptions = kafka
     this.#remult.apiClient.url = priciUBaseUrl + '/api'
     if (token) {
       this.#remult.apiClient.httpClient = (...args) => {
@@ -44,6 +52,20 @@ export class PriciSdk {
 
   getFieldState(accountId: string, fieldId: string, allowedValue?: number | string) {
     return this.#remult.call(this.#accountFields.getFieldState, this.#accountFields, accountId, fieldId, allowedValue)
+  }
+
+  kafka = {
+    incrementField: (options: Omit<IncrementFieldEvent, 'type'>) => {
+      if (!this.#kafkaOptions) {
+        throw new Error('kafka options not initialized');
+      }
+      this.#kafkaOptions.producer.send({
+        topic: this.#kafkaOptions.topic,
+        messages: [
+          { value: JSON.stringify({ type: 'incrementField', ...options }) },
+        ],
+      })
+    }
   }
 
 }
