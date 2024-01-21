@@ -33,6 +33,10 @@ module.exports = {
             link: "/content/introduction/kafka"
           },
           {
+            text: "NestJs Integration",
+            link: "/content/introduction/nestjs"
+          },
+          {
             text: 'SDK',
             items: [
               {
