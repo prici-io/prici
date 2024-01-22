@@ -3,7 +3,8 @@
   "version": "1.0.5",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "build": "vitepress build && npm run copy-assets",
+    "copy-assets": "cp favicon.ico .vitepress/dist/favicon.ico && cp logo.jpeg .vitepress/dist/logo.jpeg",
     "serve": "vitepress serve"
   },
   "devDependencies": {
