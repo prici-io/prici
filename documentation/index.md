@@ -1,20 +1,33 @@
-# Prici
+---
+layout: home
 
-Prici is an open-source project to manage plans and pricing for any SaaS application.
-You can use Docker's standalone service and run it locally or on your machine.
+hero:
+  name: Prici.io
+  text: Manage plans and pricing limitations for any SaaS application
+  image:
+    src: /logo.jpeg
+    alt: Prici.io
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /content/introduction/index
+    - theme: alt
+      text: View on GitHub
+      link: https://github.com/prici-io/prici
 
--------
-## Getting started
+features:
+  - icon: 🚀
+    title: Run with Docker
+    details: Easy run through docker to get started.
+    link: /content/introduction/index
+      
+  - icon: 🎁
+    title: SDK
+    details: Use the SDK to manage plans and to ask fields' state.
+    link: /content/sdk/node/getting-started
 
-Create a `.env` file with the following content:
-```dotenv
-JWT_SECRET=something-difficult-to-break
-```
-
-Run it locally or wherever:
-```shell
-$ docker run -p 9000:9000 --env-file=.env ghcr.io/prici-io/prici:main
-```
-
-That's it. Now **prici** runs on port 9000.
-
+  - icon: 🗃️
+    title: Custom DB
+    details: Work with the databases you have - Mongo, Postgres or JSON files.
+    link: /content/introduction/custom-database
+---

@@ -1,13 +1,13 @@
 # @prici/sdk
 
-### SDK to use Prici.io API to manage pricing and SaaS plans for your application.
+## Installation
+```shell
+# using npm
+$ npm i @prici/sdk
 
-Go to https://prici.io for more information.
-
-## About Prici
-Prici is an open source project to manage plans and pricing for any SaaS application.
-
-You can use the standalone service using Docker and run it locally or on your machine.
+# using pnpm
+$ pnpm add @prici/sdk
+```
 
 ## Getting Started
 
@@ -69,7 +69,8 @@ const advancedPlan = await sdk.PlanField.insert({
 
 ### Create new AccountPlan
 
-An account plan is the actual state of a plan for a specific account
+An account plan is the actual state of a plan for a specific account.
+An account can have multiple plans attached.
 
 ```typescript
 
@@ -84,7 +85,4 @@ const demoAccount = await sdk.AccountPlan.insert({
     }
   }
 })
-
 ```
-
-Enjoy.
