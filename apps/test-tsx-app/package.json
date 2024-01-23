@@ -1,0 +1,17 @@
+{
+  "name": "test-tsx-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --import tsx --test *.ts",
+    "test:watch": "node --import tsx --test --watch *.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prici/sdk": "workspace:^",
+    "tsx": "^4.6.2"
+  }
+}

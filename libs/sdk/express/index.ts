@@ -1,5 +1,5 @@
 import PriciSdk from '../index';
-import { FieldStateResult } from '@prici/shared-remult/controllers/account-fields.controller';
+import { FieldStateResult } from '@prici/shared-remult';
 
 export interface MiddlewareOptions {
   sdk: PriciSdk;

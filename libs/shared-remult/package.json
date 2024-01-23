@@ -2,13 +2,14 @@
   "name": "@prici/shared-remult",
   "version": "1.0.10",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "homepage": "https://github.com/prici-io/prici",
   "repository": {
     "url": "https://github.com/prici-io/prici"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "pnpm build",
+    "build": "pnpm --package=typescript dlx tsc"
   },
   "author": "",
   "license": "MIT",
