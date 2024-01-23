@@ -8,7 +8,6 @@
     "url": "https://github.com/prici-io/prici"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "pnpm build",
     "build": "pnpm --package=typescript dlx tsc"
   },
