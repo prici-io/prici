@@ -1,5 +1,5 @@
 import {CanActivate, ExecutionContext, HttpException, HttpStatus} from "@nestjs/common";
-import {FieldStateResult} from '@prici/shared-remult/controllers/account-fields.controller';
+import {FieldStateResult} from '@prici/shared-remult';
 import PriciSdk from '../index';
 
 export interface GuardOptions {
