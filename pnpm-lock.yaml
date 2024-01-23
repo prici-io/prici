@@ -70,7 +70,7 @@ importers:
         specifier: workspace:^
         version: link:../../libs/sdk
 
-  apps/test-ts-app:
+  apps/test-tsx-app:
     dependencies:
       '@prici/sdk':
         specifier: workspace:^
