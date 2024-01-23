@@ -5,7 +5,13 @@ import { AccountPlan } from './entities/account-plan';
 import AccountFieldsController from './controllers/account-fields.controller';
 
 export * from './entities/types';
+export * from './controllers/types';
 
 export const entities = { Plan, PlanField, AccountPlan }
 
 export const controllers = [AccountFieldsController]
+
+export {
+  AccountFieldsController,
+  Plan, PlanField, AccountPlan
+}

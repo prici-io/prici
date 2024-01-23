@@ -64,6 +64,21 @@ importers:
         specifier: ^4.6.2
         version: 4.6.2
 
+  apps/test-js-app:
+    dependencies:
+      '@prici/sdk':
+        specifier: workspace:^
+        version: link:../../libs/sdk
+
+  apps/test-ts-app:
+    dependencies:
+      '@prici/sdk':
+        specifier: workspace:^
+        version: link:../../libs/sdk
+      tsx:
+        specifier: ^4.6.2
+        version: 4.6.2
+
   documentation:
     devDependencies:
       vitepress:
