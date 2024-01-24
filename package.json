@@ -19,6 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@nestjs/common": "^10.0.0",
     "@types/node": "^20.10.4",
     "tsx": "^4.6.2"
   }

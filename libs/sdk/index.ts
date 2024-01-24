@@ -44,8 +44,10 @@ export class PriciSdk {
         };
 
         args[1] = opts;
-        return fetch(...args);
-      };
+        const reqUrl = args[0];
+        const reqInit = args[1];
+        return fetch(reqUrl, reqInit);
+      }
     }
   }
 
