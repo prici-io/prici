@@ -36,6 +36,7 @@ export class AccountFieldsController implements BaseController {
   @BackendMethod({ allowed: true })
   async getFieldState(accountId: string, fieldId: string, allowedValue?: number | string): Promise<{
     isAllowed: boolean,
+    hasReachedLimit?: boolean,
     state?: CalculatedFieldState
   }> {
     const accountPlanRepo = remult.repo(AccountPlan);
@@ -54,6 +55,8 @@ export class AccountFieldsController implements BaseController {
         } as CalculatedFieldState
       }
 
+      aggregatedState.canExceedLimit = aggregatedState.canExceedLimit || state.canExceedLimit;
+
       if (aggregatedState.kind === FieldKind.Boolean) {
         aggregatedState.currentValue = !!(aggregatedState.currentValue || state.currentValue);
       } else if (aggregatedState.kind === FieldKind.Number) {
@@ -64,9 +67,10 @@ export class AccountFieldsController implements BaseController {
       }
 
       return aggregatedState;
-    }, undefined) || { kind: FieldKind.Boolean, currentValue: true, targetLimit: true }
+    }, undefined) || { kind: FieldKind.Boolean, currentValue: true, targetLimit: true, canExceedLimit: false }
 
     let isAllowed = false;
+    let hasReachedLimit;
 
     switch (state.kind) {
       case FieldKind.Boolean:
@@ -74,7 +78,8 @@ export class AccountFieldsController implements BaseController {
         break;
       case FieldKind.Number:
         const diff = Number(state.targetLimit) - Number(state.currentValue);
-        isAllowed = diff > 0 && (!allowedValue || diff >= Number(allowedValue))
+        hasReachedLimit = diff <= 0;
+        isAllowed = !hasReachedLimit && (!allowedValue || diff >= Number(allowedValue));
         break;
       case FieldKind.String:
         isAllowed = typeof allowedValue === 'undefined' ? true : (state.currentValue as string[]).includes(allowedValue.toString())
@@ -83,6 +88,7 @@ export class AccountFieldsController implements BaseController {
 
     return {
       isAllowed,
+      hasReachedLimit,
       state
     };
   }

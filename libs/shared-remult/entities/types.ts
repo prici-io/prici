@@ -27,16 +27,19 @@ export enum ResetMode {
 export interface FieldState {
   targetLimit: number | string | boolean,
   kind: FieldKind,
-  currentValue?: number | string | boolean
+  currentValue?: number | string | boolean,
+  canExceedLimit?: boolean
 }
 
 export interface CalculatedFieldState {
   targetLimit: number | string | boolean,
   kind: FieldKind,
-  currentValue?: number | string[] | boolean
+  currentValue?: number | string[] | boolean,
+  canExceedLimit?: boolean
 }
 
 export interface FieldInPlan {
   fieldId: string,
-  value: number | boolean | string
+  value: number | boolean | string,
+  canExceedLimit?: boolean
 }
