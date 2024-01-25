@@ -5,7 +5,7 @@ import PriciSdk from '../index';
 export interface GuardOptions {
     sdk: PriciSdk;
     fieldId?: string;
-    errorMessage: string;
+    errorMessage?: string;
     incrementAmount?: number;
     getAccountId?: (req?: any) => string | Promise<string>;
     getFieldId?: (req?: any) => string | Promise<string>;
@@ -20,7 +20,7 @@ export class IsAllowedGuard implements CanActivate {
         const opts = {
             getAccountId: async (req: any) => req.accountId || req.account?.id || req.user?.account || req.user?.tenant,
             getFieldId: async (req: any) => this.options.fieldId || req.fieldId,
-            getError: async (req?: any) => this.options.errorMessage || 'reached limit',
+            getError: async (req?: any) => this.options.errorMessage || 'payment required',
             getIncrementAmount: () => this.options.incrementAmount,
             ...this.options
         }
