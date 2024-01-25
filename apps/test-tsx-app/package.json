@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --import tsx --test *.ts",
-    "test:watch": "node --import tsx --test --watch *.ts"
+    "test": "node --import tsx --test *.test.ts",
+    "test:watch": "node --import tsx --test --watch *.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prici/sdk": "workspace:^",
-    "tsx": "^4.6.2"
+    "jsonwebtoken": "^9.0.2",
+    "tsx": "^4.6.2",
+    "zx": "^7.2.3"
   }
 }

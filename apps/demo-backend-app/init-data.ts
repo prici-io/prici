@@ -1,5 +1,5 @@
 import PriciSdk, { FieldKind, ResetMode } from '@prici/sdk';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import path from 'node:path';
 
 const sdk = new PriciSdk({
@@ -47,8 +47,6 @@ const sdk = new PriciSdk({
   })
 
   console.log('account', account);
-
-
 
   const envs = fs.readFileSync(path.join(process.cwd(), 'example.env'), 'utf8').toString()
   fs.writeFileSync(path.join(process.cwd(), '.env'), envs.replace('PUT_HERE_FEATURE_ID', todosField.id))

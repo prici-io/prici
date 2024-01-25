@@ -10,5 +10,6 @@ export interface IncrementFieldEvent {
 
 export interface FieldStateResult {
   isAllowed: boolean,
+  hasReachedLimit?: boolean,
   state?: CalculatedFieldState
 }
