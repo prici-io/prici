@@ -1,4 +1,4 @@
-import fastify from 'fastify'
+import fastify from 'fastify';
 import { UserInfo } from 'remult';
 import { host, port } from './config';
 import { checkAuthPlugin } from './hooks/check-auth.plugin';
@@ -12,16 +12,24 @@ declare module 'fastify' {
 }
 
 (async () => {
-  const server = fastify()
+  const server = fastify();
 
-  await checkAuthPlugin(server)
+  await checkAuthPlugin(server);
 
   await server.register(
-    await remultApiProviderService.ready
-  )
+    await remultApiProviderService.ready,
+  );
 
-  await server.listen({ host, port })
-  console.log(`listening on ${host}:${port}`)
+  await server.listen({ host, port });
+  console.log(`listening on ${host}:${port}`);
 
-  await initEventBus()
-})()
+  await initEventBus();
+})();
+
+
+if (process.env.NODE_ENV !== 'production') {
+  process.on('SIGINT', () => {
+    process.exit(0);
+  });
+}
+
