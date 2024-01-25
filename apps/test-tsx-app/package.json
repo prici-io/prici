@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --import tsx --test *.ts",
+    "test": "node --import tsx --test *.test.ts",
     "test:watch": "node --import tsx --test --watch *.test.ts"
   },
   "keywords": [],

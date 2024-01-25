@@ -16,7 +16,7 @@ async function runPriciInstance() {
     JWT_SECRET: token,
   };
 
-  const server = $`pnpm run dev`;
+  const server = $`node --import tsx --watch server.ts`;
 
   await setTimeout(2000);
 
