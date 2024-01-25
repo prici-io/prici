@@ -27,11 +27,6 @@ async function runPriciInstance() {
     throw 'no prici';
   }
 
-  server.catch(() => {
-    console.log('prici failed to run');
-    process.exit(1)
-  })
-
   return {
     port: RANDOM_PORT,
     quit: () => {
