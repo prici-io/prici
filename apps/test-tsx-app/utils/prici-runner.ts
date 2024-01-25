@@ -20,13 +20,6 @@ async function runPriciInstance() {
 
   await setTimeout(2000);
 
-  const result = await $`nc -z localhost ${RANDOM_PORT}`;
-
-  if (!result.toString().includes('succeeded!')) {
-    server.kill('SIGINT')
-    throw 'no prici';
-  }
-
   return {
     port: RANDOM_PORT,
     quit: () => {
