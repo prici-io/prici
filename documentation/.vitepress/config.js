@@ -45,6 +45,7 @@ module.exports = {
                   { text: 'Getting Started', link: '/content/sdk/node/getting-started' },
                   { text: 'Increment Field', link: '/content/sdk/node/increment-field' },
                   { text: 'Get Field State', link: '/content/sdk/node/get-field-state' },
+                  { text: 'Can Exceed Limit', link: '/content/sdk/node/can-exceed-limit' },
                 ]
               }
             ]
