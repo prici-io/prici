@@ -61,7 +61,7 @@ const advancedPlan = await sdk.PlanField.insert({
   name: 'Advanced',
   fields: [
     { fieldId: jiggleField.id, value: true },
-    { fieldId: wiggleField.id, value: 10 },
+    { fieldId: wiggleField.id, value: 10, canExceedLimit: true },
   ]
 })
 ```
