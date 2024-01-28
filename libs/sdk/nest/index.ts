@@ -13,45 +13,51 @@ export interface GuardOptions {
     getIncrementAmount?: (req?: any) => number;
 }
 
-export class IsAllowedGuard implements CanActivate {
-    constructor(private options: GuardOptions) {
-    }
-    async canActivate(context: ExecutionContext): Promise<boolean> {
-        const opts = {
-            getAccountId: async (req: any) => req.accountId || req.account?.id || req.user?.account || req.user?.tenant,
-            getFieldId: async (req: any) => this.options.fieldId || req.fieldId,
-            getError: async (req?: any) => this.options.errorMessage || 'payment required',
-            getIncrementAmount: () => this.options.incrementAmount,
-            ...this.options
+export function IsAllowedGuard (options: GuardOptions) {
+    class IsAllowedMixin implements CanActivate {
+        options: GuardOptions;
+        constructor() {
+            this.options = options;
         }
+        async canActivate(context: ExecutionContext): Promise<boolean> {
+            const opts = {
+                getAccountId: async (req: any) => req.accountId || req.account?.id || req.user?.account || req.user?.tenant,
+                getFieldId: async (req: any) => this.options.fieldId || req.fieldId,
+                getError: async (req?: any) => this.options.errorMessage || 'payment required',
+                getIncrementAmount: () => this.options.incrementAmount,
+                ...this.options
+            }
 
-        const ctx = context.switchToHttp();
-        const req = ctx.getRequest();
-        const res = ctx.getResponse();
-        const [accountId, fieldId] = await Promise.all([
-            opts.getAccountId(req),
-            opts.getFieldId(req)
-        ]);
+            const ctx = context.switchToHttp();
+            const req = ctx.getRequest();
+            const res = ctx.getResponse();
+            const [accountId, fieldId] = await Promise.all([
+                opts.getAccountId(req),
+                opts.getFieldId(req)
+            ]);
 
-        if (!(accountId && fieldId)) {
+            if (!(accountId && fieldId)) {
+                return true;
+            }
+
+            const result = await opts.sdk.getFieldState(accountId, fieldId);
+
+            if (!result.isAllowed) {
+                const errorMessage = await opts.getError(req, result);
+                throw new HttpException(errorMessage, HttpStatus.PAYMENT_REQUIRED);
+            }
+
+            res.once("finish", () => {
+                if (res.statusCode.toString().startsWith('2')) {
+                    opts.sdk
+                        .incrementField(accountId, fieldId, opts.getIncrementAmount(req) || undefined)
+                        .catch()
+                }
+            });
+
             return true;
         }
-
-        const result = await opts.sdk.getFieldState(accountId, fieldId);
-
-        if (!result.isAllowed) {
-            const errorMessage = await opts.getError(req, result);
-            throw new HttpException(errorMessage, HttpStatus.PAYMENT_REQUIRED);
-        }
-
-        res.once("finish", () => {
-            if (res.statusCode.toString().startsWith('2')) {
-                opts.sdk
-                    .incrementField(accountId, fieldId, opts.getIncrementAmount(req) || undefined)
-                    .catch()
-            }
-        });
-
-        return true;
     }
+
+    return IsAllowedMixin;
 }
