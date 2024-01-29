@@ -1,19 +1,15 @@
 import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
-import { IsAllowedGuard, PriciService } from '@prici/sdk/nest';
+import { IsAllowedGuard } from '@prici/sdk/nest';
 
 const featureId = process.env.TODOS_FEATURE_ID as string;
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private priciService: PriciService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get('todos')
   getAllTodos() {
-    console.log('priciService', this.priciService, this.priciService.sdk);
     return this.appService.getAllTodos();
   }
 
