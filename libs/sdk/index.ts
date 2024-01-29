@@ -12,12 +12,13 @@ import {
 } from '@prici/shared-remult';
 
 export interface PriciSdkOptions {
-  token?: string,
-  priciUBaseUrl?: string,
+  token?: string;
+  priciUBaseUrl?: string;
+  defaultErrorMessage?: string;
   kafka?: {
     producer: any;
     topic: string;
-  }
+  };
 }
 
 export class PriciSdk {
@@ -25,16 +26,24 @@ export class PriciSdk {
   #accountFields = new AccountFieldsController();
 
   kafkaOptions?: PriciSdkOptions['kafka'];
+  readonly defaultErrorMessage: string;
 
   Plan = this.#remult.repo(Plan);
   PlanField = this.#remult.repo(PlanField);
   AccountPlan = this.#remult.repo(AccountPlan);
 
-  constructor({ token, priciUBaseUrl, kafka }: PriciSdkOptions = {}) {
+  constructor({
+    token,
+    priciUBaseUrl,
+    kafka,
+    defaultErrorMessage,
+  }: PriciSdkOptions = {}) {
     token = token || process.env.PRICI_TOKEN;
     priciUBaseUrl = priciUBaseUrl || process.env.PRICI_BASE_URL;
     this.kafkaOptions = kafka;
+    this.defaultErrorMessage = defaultErrorMessage || 'payment required';
     this.#remult.apiClient.url = priciUBaseUrl + '/api';
+
     if (token) {
       this.#remult.apiClient.httpClient = (...args) => {
         const opts: RequestInit = args[1] || {};
@@ -48,16 +57,36 @@ export class PriciSdk {
         const reqUrl = args[0];
         const reqInit = args[1];
         return fetch(reqUrl, reqInit);
-      }
+      };
     }
   }
 
-  incrementField(accountId: string, fieldId: string, incrementAmount?: number | any) {
-    return this.#remult.call(this.#accountFields.incrementField, this.#accountFields, accountId, fieldId, incrementAmount);
+  incrementField(
+    accountId: string,
+    fieldId: string,
+    incrementAmount?: number | any
+  ) {
+    return this.#remult.call(
+      this.#accountFields.incrementField,
+      this.#accountFields,
+      accountId,
+      fieldId,
+      incrementAmount
+    );
   }
 
-  getFieldState(accountId: string, fieldId: string, allowedValue?: number | string) {
-    return this.#remult.call(this.#accountFields.getFieldState, this.#accountFields, accountId, fieldId, allowedValue);
+  getFieldState(
+    accountId: string,
+    fieldId: string,
+    allowedValue?: number | string
+  ) {
+    return this.#remult.call(
+      this.#accountFields.getFieldState,
+      this.#accountFields,
+      accountId,
+      fieldId,
+      allowedValue
+    );
   }
 
   kafka = {
@@ -73,7 +102,6 @@ export class PriciSdk {
       });
     },
   };
-
 }
 
 export const initialize = (opts: PriciSdkOptions = {}) => {
@@ -82,6 +110,12 @@ export const initialize = (opts: PriciSdkOptions = {}) => {
 
 export default PriciSdk;
 
-export { Plan, PlanField, AccountPlan, FieldKind, ResetMode, FieldState, FieldInPlan };
-
-
+export {
+  Plan,
+  PlanField,
+  AccountPlan,
+  FieldKind,
+  ResetMode,
+  FieldState,
+  FieldInPlan,
+};

@@ -20,7 +20,6 @@ export class AppController {
   @Post('todos')
   @UseGuards(
     IsAllowedGuard({
-      errorMessage: 'User is out of quota',
       getAccountId: (_) => 'demo-account',
       getFieldId: (_) => featureId,
     }),

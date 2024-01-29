@@ -44,7 +44,8 @@ export function IsAllowedGuard(options: GuardOptions): Type<CanActivate> {
           req.user?.tenant,
         getFieldId: async (req: any) => this.options.fieldId || req.fieldId,
         getError: async (req?: any) =>
-          this.options.errorMessage || 'payment required',
+          this.options.errorMessage ||
+          this.priciService.sdk.defaultErrorMessage,
         getIncrementAmount: () => this.options.incrementAmount,
         ...this.options,
       };
