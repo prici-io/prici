@@ -10,7 +10,7 @@ import { FieldStateResult } from '@prici/shared-remult';
 import PriciSdk from '../index';
 import { PriciService } from './prici.service';
 
-export interface GuardOptions {
+export interface IsAllowedGuardOptions {
   sdk?: PriciSdk;
   fieldId?: string;
   errorMessage?: string;
@@ -24,9 +24,11 @@ export interface GuardOptions {
   getIncrementAmount?: (req?: any) => number;
 }
 
-export function IsAllowedGuard(options: GuardOptions): Type<CanActivate> {
+export function IsAllowedGuard(
+  options: IsAllowedGuardOptions
+): Type<CanActivate> {
   class IsAllowedMixin implements CanActivate {
-    options: GuardOptions;
+    options: IsAllowedGuardOptions;
 
     constructor(
       @Inject(PriciService) public readonly priciService: PriciService
