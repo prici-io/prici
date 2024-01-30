@@ -107,7 +107,7 @@ export class AppController {
     @Post("todos")
     @UseGuards(new IsAllowedGuard({
         sdk: priciSdk, //required field
-        errorMessage: "User is out of quota", //required field
+        errorMessage: "User is out of quota", //optional field
         getAccountId: (_) => "demo-account",
         getFieldId: (_) => featureId
     }))
