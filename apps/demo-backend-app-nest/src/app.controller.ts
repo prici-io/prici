@@ -18,6 +18,7 @@ export class AppController {
 
     @Post("todos")
     @UseGuards(new IsAllowedGuard({
+        // @ts-ignore
         sdk: priciSdk,
         errorMessage: "User is out of quota",
         getAccountId: (_) => "demo-account",

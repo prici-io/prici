@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node --import tsx --test *.test.ts",
     "test:watch": "node --import tsx --test --watch *.test.ts"
@@ -12,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@prici/sdk": "workspace:^",
+    "@types/jsonwebtoken": "^9.0.5",
     "jsonwebtoken": "^9.0.2",
     "tsx": "^4.6.2",
     "zx": "^7.2.3"

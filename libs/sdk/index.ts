@@ -23,7 +23,8 @@ export interface PriciSdkOptions {
 export class PriciSdk {
   #remult = new Remult();
   #accountFields = new AccountFieldsController();
-  #kafkaOptions?: PriciSdkOptions['kafka'];
+
+  kafkaOptions?: PriciSdkOptions['kafka'];
 
   Plan = this.#remult.repo(Plan);
   PlanField = this.#remult.repo(PlanField);
@@ -32,7 +33,7 @@ export class PriciSdk {
   constructor({ token, priciUBaseUrl, kafka }: PriciSdkOptions = {}) {
     token = token || process.env.PRICI_TOKEN;
     priciUBaseUrl = priciUBaseUrl || process.env.PRICI_BASE_URL;
-    this.#kafkaOptions = kafka;
+    this.kafkaOptions = kafka;
     this.#remult.apiClient.url = priciUBaseUrl + '/api';
     if (token) {
       this.#remult.apiClient.httpClient = (...args) => {
@@ -61,11 +62,11 @@ export class PriciSdk {
 
   kafka = {
     incrementField: (options: Omit<IncrementFieldEvent, 'type'>) => {
-      if (!this.#kafkaOptions) {
+      if (!this.kafkaOptions) {
         throw new Error('kafka options not initialized');
       }
-      this.#kafkaOptions.producer.send({
-        topic: this.#kafkaOptions.topic,
+      this.kafkaOptions.producer.send({
+        topic: this.kafkaOptions.topic,
         messages: [
           { value: JSON.stringify({ type: 'incrementField', ...options }) },
         ],
@@ -76,7 +77,7 @@ export class PriciSdk {
 }
 
 export const initialize = (opts: PriciSdkOptions = {}) => {
-  return new PriciSdk(opts);
+  return new PriciSdk(opts) as PriciSdk;
 };
 
 export default PriciSdk;
