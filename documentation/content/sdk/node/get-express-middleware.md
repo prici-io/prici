@@ -41,9 +41,9 @@ const middlewareOptions: MiddlewareOptions = {
 };
 
 // Create the middleware function
-const priciMiddleware = getExpressMiddleware(middlewareOptions);
+const middleware = getExpressMiddleware(middlewareOptions);
 
 // Use the middleware in your Express app
-app.use(priciMiddleware);
+app.use(middleware);
 
 ```
