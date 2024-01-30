@@ -1,6 +1,6 @@
 {
   "name": "@prici/sdk",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/index.js",
   "homepage": "https://github.com/prici-io/prici",
