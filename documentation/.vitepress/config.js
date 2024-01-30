@@ -46,6 +46,7 @@ module.exports = {
                   { text: 'Increment Field', link: '/content/sdk/node/increment-field' },
                   { text: 'Get Field State', link: '/content/sdk/node/get-field-state' },
                   { text: 'Can Exceed Limit', link: '/content/sdk/node/can-exceed-limit' },
+                  { text: 'Get Express Middleware', link: '/content/sdk/node/get-express-middleware' },
                 ]
               }
             ]
