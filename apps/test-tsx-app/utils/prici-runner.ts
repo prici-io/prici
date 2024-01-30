@@ -8,7 +8,12 @@ const tenantName = 'demo-tenant-' + Math.random();
 
 
 async function runPriciInstance() {
-  const RANDOM_PORT = Math.floor(Math.random() * 10000).toString()
+  let RANDOM_PORT = Math.floor(Math.random() * 10000).toString()
+
+  if (RANDOM_PORT.length < 4) {
+    RANDOM_PORT = '3'.repeat(4 - RANDOM_PORT.length) + RANDOM_PORT;
+  }
+
   $.cwd = '../api';
   $.env = {
     ...process.env,
@@ -24,8 +29,8 @@ async function runPriciInstance() {
     port: RANDOM_PORT,
     quit: () => {
       console.log('quit prici server');
-      server.kill('SIGINT')
-    }
+      server.kill('SIGINT');
+    },
   };
 }
 
@@ -40,6 +45,6 @@ export async function getPriciSdk() {
       }, token),
       priciUBaseUrl: 'http://localhost:' + server.port,
     }),
-    quit: () => server.quit()
-  }
+    quit: () => server.quit(),
+  };
 }
