@@ -21,9 +21,9 @@ const middlewareOptions = {
 ## Example Usage
 
 ```javascript
-import PriciSdk from 'prici-sdk';
+import PriciSdk from '@prici/sdk';
 import { FieldStateResult } from '@prici/shared-remult';
-import { getExpressMiddleware, MiddlewareOptions } from '/path/to/prici/sdk/express';
+import { getExpressMiddleware, MiddlewareOptions } from '@prici/sdk/express';
 
 // Create an instance of PriciSdk
 const priciSdk = new PriciSdk();
@@ -46,4 +46,14 @@ const middleware = getExpressMiddleware(middlewareOptions);
 // Use the middleware in your Express app
 app.use(middleware);
 
+```
+
+## Default Error Message
+When you want to use the middleware in multiple routes,
+instead of passing a custom error message every time through the middleware options,
+you can set a default message in the `PriciSdk` constructor:
+```javascript
+const priciSdk = new PriciSdk({
+  defaultErrorMessage: 'Example error message'
+});
 ```
