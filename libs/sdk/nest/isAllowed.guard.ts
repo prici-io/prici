@@ -7,8 +7,11 @@ import {
   Type,
 } from '@nestjs/common';
 import { FieldStateResult } from '@prici/shared-remult';
-import PriciSdk from '../index';
 import { PriciService } from './prici.service';
+
+import type { PriciSdk as PriciSdkInternal } from '../index';
+
+type PriciSdk = Omit<PriciSdkInternal, '#private'>;
 
 export interface IsAllowedGuardOptions {
   sdk?: PriciSdk;
