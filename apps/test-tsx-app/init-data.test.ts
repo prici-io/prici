@@ -13,7 +13,6 @@ describe('init account data using the sdk', async () => {
   const { sdk, quit } = await getPriciSdk();
 
   after(() => {
-    console.log('after tests');
     quit();
   });
 
