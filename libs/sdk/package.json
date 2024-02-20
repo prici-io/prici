@@ -9,7 +9,9 @@
   },
   "scripts": {
     "prepublishOnly": "pnpm build",
-    "build": "pnpm --package=typescript dlx tsc"
+    "build": "pnpm --package=typescript dlx tsc",
+    "test": "node --import tsx --test **/**/*.test.ts",
+    "test:watch": "node --import tsx --test --watch *.test.ts"
   },
   "author": "",
   "license": "MIT",
