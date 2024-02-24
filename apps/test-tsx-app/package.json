@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node --import tsx --test *.test.ts",
-    "test:watch": "node --import tsx --test --watch *.test.ts"
+    "test": "node --import tsx --test **/*.test.ts *.test.ts",
+    "test:watch": "node --import tsx --test --watch **/*.test.ts *.test.ts"
   },
   "keywords": [],
   "author": "",

@@ -28,7 +28,8 @@ export interface FieldState {
   targetLimit: number | string | boolean,
   kind: FieldKind,
   currentValue?: number | string | boolean,
-  canExceedLimit?: boolean
+  canExceedLimit?: boolean,
+  resetMode?: ResetMode,
 }
 
 export interface CalculatedFieldState {
@@ -41,5 +42,6 @@ export interface CalculatedFieldState {
 export interface FieldInPlan {
   fieldId: string,
   value: number | boolean | string,
-  canExceedLimit?: boolean
+  canExceedLimit?: boolean,
+  resetMode?: ResetMode,
 }
