@@ -41,12 +41,22 @@ module.exports = {
             items: [
               {
                 text: 'Node.js SDK',
+                link: '/content/sdk/node/getting-started',
                 items: [
                   { text: 'Getting Started', link: '/content/sdk/node/getting-started' },
                   { text: 'Increment Field', link: '/content/sdk/node/increment-field' },
                   { text: 'Get Field State', link: '/content/sdk/node/get-field-state' },
                   { text: 'Can Exceed Limit', link: '/content/sdk/node/can-exceed-limit' },
                   { text: 'Get Express Middleware', link: '/content/sdk/node/get-express-middleware' },
+                  {
+                    text: 'Account Plans',
+                    link: '/content/sdk/node/account-plans/basics',
+                    items: [
+                      { text: 'The Basics', link: '/content/sdk/node/account-plans/basics' },
+                      { text: 'Custom Reset Mode', link: '/content/sdk/node/account-plans/custom-reset-mode' }
+                    ]
+                  }
+
                 ]
               }
             ]
