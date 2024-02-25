@@ -37,7 +37,7 @@ AccountPlan.applyOptions = function(options: EntityOptions<AccountPlan>) {
           targetLimit: field.value as number,
           kind: FieldKind.Number,
           currentValue: 0,
-          canExceedLimit: field.canExceedLimit
+          canExceedLimit: field.canExceedLimit,
         };
       } else {
         state[field.fieldId] = {
@@ -45,6 +45,9 @@ AccountPlan.applyOptions = function(options: EntityOptions<AccountPlan>) {
           kind: FieldKind.String,
           currentValue: field.value,
         };
+      }
+      if (field.resetMode) {
+        state[field.fieldId].resetMode = field.resetMode;
       }
       if (manualFieldState) {
         Object.assign(state[field.fieldId], manualFieldState);

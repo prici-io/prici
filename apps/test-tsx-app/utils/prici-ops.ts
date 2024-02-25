@@ -1,4 +1,4 @@
-import { FieldInPlan, FieldKind, Plan, PriciSdk } from '@prici/sdk';
+import { AccountPlan, FieldInPlan, FieldKind, Plan, PriciSdk } from '@prici/sdk';
 
 export function createPlanField(sdk: PriciSdk, kind: FieldKind = FieldKind.Number) {
   const data = {
@@ -19,5 +19,13 @@ export function createAccountPlan(sdk: PriciSdk, mockPlan: Plan, accountId: stri
   return sdk.AccountPlan.insert({
     accountId,
     plan: mockPlan,
+  });
+}
+
+
+export function createCustomAccountPlan(sdk: PriciSdk, accountPlan: Partial<AccountPlan>) {
+  return sdk.AccountPlan.insert({
+    ...accountPlan,
+    accountId: 'demo-account-' + Math.random(),
   });
 }
