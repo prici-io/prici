@@ -5,7 +5,6 @@ import { createAccountPlan, createCustomAccountPlan, createPlan, createPlanField
 import { FieldKind, ResetMode } from '@prici/sdk';
 
 describe('AccountPlan', async () => {
-  const accountId = 'demo-account-' + Math.random();
   const { sdk, quit } = await getPriciSdk();
 
   after(() => {
