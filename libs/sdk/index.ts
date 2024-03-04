@@ -9,6 +9,7 @@ import {
   ResetMode,
   FieldState,
   FieldInPlan,
+  FieldsGroup,
 } from '@prici/shared-remult';
 
 export interface PriciSdkOptions {
@@ -31,6 +32,7 @@ export class PriciSdk {
   Plan = this.#remult.repo(Plan);
   PlanField = this.#remult.repo(PlanField);
   AccountPlan = this.#remult.repo(AccountPlan);
+  FieldsGroup = this.#remult.repo(FieldsGroup);
 
   constructor({
     token,

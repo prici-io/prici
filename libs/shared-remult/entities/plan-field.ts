@@ -1,8 +1,10 @@
-import { Entity, EntityOptions, Fields, Validators } from 'remult';
+import { Entity, EntityOptions, Fields, Relations, Validators } from 'remult';
 import { BaseEntity, FieldKind } from './types';
 import { entityBaseOptions } from '../utils/entity-base-options';
+import { Plan } from './plan';
+import { FieldsGroup } from './fields-group';
 
-const fieldKinds = new Set(Object.values(FieldKind))
+const fieldKinds = new Set(Object.values(FieldKind));
 
 @Entity('planFields', entityBaseOptions, (options: EntityOptions) => {
   if (PlanField.applyOptions) {
@@ -25,11 +27,14 @@ export class PlanField extends BaseEntity {
     validate: ({ kind }: any) => {
       // @ts-ignore
       if (!(fieldKinds.has(kind))) {
-        throw 'field kind must be one of ' + Array.from(fieldKinds)
+        throw 'field kind must be one of ' + Array.from(fieldKinds);
       }
-    }
+    },
   })
   kind = FieldKind.Number;
+
+  @Relations.toOne(() => FieldsGroup, { dbName: 'groupId', allowNull: true })
+  group?: FieldsGroup;
 
   @Fields.createdAt()
   createdAt = new Date;
