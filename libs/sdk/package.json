@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@prici/shared-remult": "workspace:^",
-    "remult": "^0.24.1"
+    "remult": "^0.25.5"
   },
   "peerDependencies": {
     "@nestjs/common": "^9.0.0 || ^10.0.0"

@@ -20,6 +20,7 @@ class RemultApiProviderService {
       dataProvider: await getDataProvider(),
       entities: entitiesList,
       controllers,
+      admin: process.env.ADMIN_UI === 'true',
       async getUser(req) {
         return req.user || { id: '', tenant: defaultTenant };
       }

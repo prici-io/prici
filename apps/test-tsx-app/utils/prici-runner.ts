@@ -5,7 +5,11 @@ import { initialize } from '@prici/sdk';
 
 const token = 'abcd';
 const tenantName = 'demo-tenant-' + Math.random();
+let adminUi = 'false';
 
+export function updateAdminUi(val: string) {
+  adminUi = val;
+} 
 
 async function runPriciInstance() {
   let RANDOM_PORT = Math.floor(Math.random() * 10000).toString()
@@ -19,6 +23,7 @@ async function runPriciInstance() {
     ...process.env,
     PORT: RANDOM_PORT,
     JWT_SECRET: token,
+    ADMIN_UI: adminUi,
   };
 
   const server = $`node --import tsx --watch server.ts`;
@@ -37,14 +42,16 @@ async function runPriciInstance() {
 
 export async function getPriciSdk() {
   const server = await runPriciInstance();
+  const priciUBaseUrl = 'http://localhost:' + server.port;
 
   return {
     sdk: initialize({
       token: jsonwebtoken.sign({
         tenant: tenantName,
       }, token),
-      priciUBaseUrl: 'http://localhost:' + server.port,
+      priciUBaseUrl,
     }),
     quit: () => server.quit(),
+    priciUBaseUrl,
   };
 }

@@ -17,7 +17,7 @@
     "mongodb": "^6.3.0",
     "pg": "^8.11.3",
     "redis": "^4.6.12",
-    "remult": "^0.24.1",
+    "remult": "^0.25.5",
     "tsx": "^4.6.2"
   },
   "devDependencies": {

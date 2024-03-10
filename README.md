@@ -9,6 +9,8 @@ You can use Docker's standalone service and run it locally or on your machine.
 Create a `.env` file with the following content:
 ```dotenv
 JWT_SECRET=something-difficult-to-break
+# Enable /api/admin route for admin interface
+ADMIN_UI=true
 ```
 
 Run it locally or wherever:
