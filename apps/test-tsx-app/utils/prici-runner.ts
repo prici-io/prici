@@ -5,13 +5,8 @@ import { initialize } from '@prici/sdk';
 
 const token = 'abcd';
 const tenantName = 'demo-tenant-' + Math.random();
-let adminUi = 'false';
 
-export function updateAdminUi(val: string) {
-  adminUi = val;
-} 
-
-async function runPriciInstance() {
+async function runPriciInstance(isAdminUiEnabled: string) {
   let RANDOM_PORT = Math.floor(Math.random() * 10000).toString()
 
   if (RANDOM_PORT.length < 4) {
@@ -23,7 +18,7 @@ async function runPriciInstance() {
     ...process.env,
     PORT: RANDOM_PORT,
     JWT_SECRET: token,
-    ADMIN_UI: adminUi,
+    ADMIN_UI: isAdminUiEnabled,
   };
 
   const server = $`node --import tsx --watch server.ts`;
@@ -40,8 +35,8 @@ async function runPriciInstance() {
 }
 
 
-export async function getPriciSdk() {
-  const server = await runPriciInstance();
+export async function getPriciSdk(isAdminUiEnabled: string = 'false') {
+  const server = await runPriciInstance(isAdminUiEnabled);
   const priciUBaseUrl = 'http://localhost:' + server.port;
 
   return {
