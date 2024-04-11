@@ -30,7 +30,7 @@ describe('admin api route while ADMIN_UI=false', async () => {
 });
 
 describe('admin api route while ADMIN_UI=true', async () => {
-  const { quit, priciUBaseUrl } = await getPriciSdk('true');
+  const { quit, priciUBaseUrl } = await getPriciSdk({ adminUi: true });
 
   after(() => {
     quit();

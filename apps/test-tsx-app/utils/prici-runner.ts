@@ -3,10 +3,14 @@ import { setTimeout } from 'node:timers/promises';
 import jsonwebtoken from 'jsonwebtoken';
 import { initialize } from '@prici/sdk';
 
+interface priciOptions {
+  adminUi?: boolean;
+}
+
 const token = 'abcd';
 const tenantName = 'demo-tenant-' + Math.random();
 
-async function runPriciInstance(isAdminUiEnabled: string) {
+async function runPriciInstance({ adminUi }: priciOptions) {
   let RANDOM_PORT = Math.floor(Math.random() * 10000).toString()
 
   if (RANDOM_PORT.length < 4) {
@@ -18,7 +22,7 @@ async function runPriciInstance(isAdminUiEnabled: string) {
     ...process.env,
     PORT: RANDOM_PORT,
     JWT_SECRET: token,
-    ADMIN_UI: isAdminUiEnabled,
+    ADMIN_UI: adminUi ? 'true' : undefined,
   };
 
   const server = $`node --import tsx --watch server.ts`;
@@ -35,8 +39,8 @@ async function runPriciInstance(isAdminUiEnabled: string) {
 }
 
 
-export async function getPriciSdk(isAdminUiEnabled: string = 'false') {
-  const server = await runPriciInstance(isAdminUiEnabled);
+export async function getPriciSdk(options: priciOptions = {}) {
+  const server = await runPriciInstance(options);
   const priciUBaseUrl = 'http://localhost:' + server.port;
 
   return {
