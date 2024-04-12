@@ -29,6 +29,8 @@ It will also do a lot more, but our main context is to help the developers to de
 Create a `.env` file with the following content:
 ```dotenv
 JWT_SECRET=something-difficult-to-break
+# Enable /api/admin route for admin interface
+ADMIN_UI=true
 ```
 
 Run it locally or wherever:
