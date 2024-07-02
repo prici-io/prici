@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node --env-file .env --import tsx --watch server.ts",
     "start": "node --import tsx server.ts",
-    "dotenv": "configu eval --schema api.cfgu.json | configu export --format Dotenv > .env &"
+    "dotenv": "configu eval --schema ../../api.cfgu.json | configu export --format Dotenv > .env &"
   },
   "author": "",
   "license": "MIT",
