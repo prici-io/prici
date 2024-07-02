@@ -1,0 +1,7 @@
+{
+  "JWT_SECRET": {
+    "type": "String",
+    "default": "something-difficult-to-break",
+    "description": "Used to specify the JWT secret key"
+  }
+}

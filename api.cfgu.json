@@ -1,0 +1,79 @@
+{
+  "DEFAULT_TENANT": {
+    "type": "String",
+    "default": "default",
+    "description": "Used for setting the default tenant"
+  },
+  "PORT": {
+    "type": "Number",
+    "default": "9000",
+    "description": "Used to specify the port number the server will listen on"
+  },
+  "HOST": {
+    "type": "String",
+    "default": "0.0.0.0",
+    "description": "Used to specify the host address"
+  },
+  "KAFKA_TOPIC_INCOMING": {
+    "type": "String",
+    "default": "prici-incoming",
+    "description": "Used for the incoming Kafka topic"
+  },
+  "KAFKA_TOPIC_OUTGOING": {
+    "type": "String",
+    "default": "prici-outgoing",
+    "description": "Used for the outgoing Kafka topic"
+  },
+  "KAFKA_TOPIC_INCOMING_REPLY": {
+    "type": "String",
+    "default": "prici-incoming-reply",
+    "description": "Used for the incoming reply Kafka topic"
+  },
+  "KAFKA_TOPIC_INCOMING_DEAD_LETTER": {
+    "type": "String",
+    "description": "Used for the incoming dead letter Kafka topic"
+  },
+  "KAFKA_GROUP_ID": {
+    "type": "String",
+    "default": "prici-api",
+    "description": "Used for the Kafka consumer group ID"
+  },
+  "KAFKA_URL": {
+    "type": "String",
+    "description": "Used to specify the Kafka brokers' URLs"
+  },
+  "KAFKA_CLIENT_ID": {
+    "type": "String",
+    "default": "prici-api",
+    "description": "Used to specify the Kafka client ID"
+  },
+  "KAFKA_SASL_MECHANISM": {
+    "type": "String",
+    "description": "Used to specify the SASL mechanism"
+  },
+  "KAFKA_USERNAME": {
+    "type": "String",
+    "description": "Used to specify the Kafka SASL username"
+  },
+  "KAFKA_PASSWORD": {
+    "type": "String",
+    "description": "Used to specify the Kafka SASL password"
+  },
+  "KAFKA_CERT_PATH": {
+    "type": "String",
+    "description": "Used to specify the path to Kafka certificates"
+  },
+  "KAFKA_SSL": {
+    "type": "Boolean",
+    "description": "Used to specify if SSL is enabled for Kafka"
+  },
+  "PRIVATE_KEY_PATH": {
+    "type": "String",
+    "description": "Used to specify the path to the private key file"
+  },
+  "JWT_SECRET": {
+    "type": "String",
+    "default": "default",
+    "description": "Used to specify the JWT secret key"
+  }
+}

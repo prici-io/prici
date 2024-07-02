@@ -9,11 +9,13 @@
     "documentation/*"
   ],
   "scripts": {
-    "start": "cd apps/api && pnpm start",
+    "start": "pnpm --filter @prici/api start",
     "docs": "cd documentation && pnpm dev",
     "build": "pnpm -r build",
     "build:docs": "cd documentation && pnpm run build",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "root:dotenv": "configu eval --schema prici.cfgu.json | configu export --format Dotenv > .env",
+    "dotenv": "pnpm run root:dotenv && pnpm -r run dotenv"
   },
   "keywords": [],
   "author": "",
