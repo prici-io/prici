@@ -20,10 +20,18 @@
     "remult": "^0.25.7"
   },
   "peerDependencies": {
+    "fastify": "^4.26.0",
+    "fastify-plugin": "^5.0.1",
     "@nestjs/common": "^9.0.0 || ^10.0.0"
   },
   "peerDependenciesMeta": {
     "@nestjs/common": {
+      "optional": true
+    },
+    "fastify": {
+      "optional": true
+    },
+    "fastify-plugin": {
       "optional": true
     }
   },
